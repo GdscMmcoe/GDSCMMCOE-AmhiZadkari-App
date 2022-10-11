@@ -1,51 +1,48 @@
 package com.gdsc.amhizadkari
 
+import AboutScreen
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ContactPhone
+import androidx.compose.material.icons.filled.Event
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.gdsc.amhizadkari.aboutus.AboutUsScreen
 import com.gdsc.amhizadkari.home.HomeScreen
-import com.gdsc.amhizadkari.pastevents.PastEventScreen
 import com.gdsc.amhizadkari.ui.theme.Poppins
-import com.gdsc.amhizadkari.upcoming.UpcomingScreen
+import com.gdsc.amhizadkari.ui.theme.linkBlue
 import kotlinx.coroutines.launch
 
 
-@Preview
 @Composable
-fun Navigation() {
+fun BottomNav(navController: NavController) {
     val items = listOf(
         Routes.Donate,
         Routes.Home,
@@ -55,16 +52,16 @@ fun Navigation() {
     val scope = rememberCoroutineScope()
 
 
-    val navController = rememberNavController()
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         ModalDrawer(
             drawerState = drawerState,
             drawerContent = {
-                DrawerContent()
+                DrawerContent(navController)
             },
         ){
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                val bottomNavController = rememberNavController()
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -102,14 +99,12 @@ fun Navigation() {
                         BottomNavigation(
                             backgroundColor = Color(0xff86AF7F),
                             modifier = Modifier.fillMaxWidth()
-                                .size(65.dp)
-                                .clip(ArcShape())
                         ) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                                         modifier = Modifier.fillMaxWidth()
                             ) {
-                                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                                val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
                                 val currentDestination = navBackStackEntry?.destination
                                 items.forEach { item ->
                                     BottomNavigationItem(
@@ -117,8 +112,8 @@ fun Navigation() {
                                         label = { Text(text = item.label!!, fontSize = 10.sp) },
                                         selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                                         onClick = {
-                                            navController.navigate(item.route) {
-                                                popUpTo(navController.graph.findStartDestination().id) {
+                                            bottomNavController.navigate(item.route) {
+                                                popUpTo(bottomNavController.graph.findStartDestination().id) {
                                                     saveState = true
                                                 }
                                                 launchSingleTop = true
@@ -132,26 +127,20 @@ fun Navigation() {
                     }
                 ) { innerPadding ->
                     NavHost(
-                        navController,
+                        bottomNavController,
                         startDestination = Routes.Home.route,
                         Modifier
                             .padding(innerPadding)
                             .padding(top = 15.dp)
                     ) {
                         composable(Routes.Home.route) {
-                            HomeScreen(navController)
+                            HomeScreen(bottomNavController)
                         }
                         composable(Routes.Donate.route) {
                             Text(text = "TODO")
                         }
-                        composable(Routes.PastEvents.route) {
-                            PastEventScreen(navController)
-                        }
-                        composable(Routes.UpcomingEvents.route) {
-                            UpcomingScreen(navController)
-                        }
                         composable(Routes.AboutUs.route) {
-                            AboutUsScreen(navController)
+                            AboutScreen(bottomNavController)
                         }
                     }
                 }
@@ -160,9 +149,10 @@ fun Navigation() {
     }
 }
 
-@Preview(showSystemUi = true)
 @Composable
-fun DrawerContent() {
+fun DrawerContent(navController: NavController) {
+    val context = LocalContext.current
+
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Column(
             verticalArrangement = Arrangement.Top,
@@ -196,7 +186,11 @@ fun DrawerContent() {
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 25.dp, top = 30.dp)
+                    .clickable {
+                        navController.navigate(Routes.ContactUs.route)
+                    }
+                    .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
+
             ) {
                 Icon(
                     imageVector = Icons.Default.ContactPhone,
@@ -217,7 +211,7 @@ fun DrawerContent() {
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 25.dp, top = 30.dp)
+                    .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
 
             ) {
                 Icon(
@@ -239,7 +233,7 @@ fun DrawerContent() {
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 25.dp, top = 30.dp)
+                    .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
 
             ) {
                 Icon(
@@ -256,45 +250,75 @@ fun DrawerContent() {
                     fontFamily = Poppins
                 )
             }
+
+
+            Spacer(modifier = Modifier.padding(30.dp))
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 25.dp, top = 30.dp)
+                    .padding(start = 25.dp)
+            ) {
+                Text(
+                    text = "Find us on",
+                    fontSize = 20.sp,
+                    fontFamily = Poppins,
+                    fontWeight = FontWeight.Medium
+                )
+            }
 
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 25.dp,bottom = 10.dp)
+                    .clickable {
+                        val intent = Intent(
+                            "android.intent.action.VIEW",
+                            Uri.parse("https://www.instagram.com/amhi_zadkari/")
+                        )
+                        context.startActivity(intent)
+                    }
             ) {
                 Icon(
-                    imageVector = Icons.Default.PeopleAlt,
-                    contentDescription = "About us",
+                    painter = painterResource(id = R.drawable.instagram),
+                    contentDescription = "Instagram",
                     modifier = Modifier
-                        .padding(end = 15.dp)
-                        .size(30.dp)
+                        .size(35.dp)
+                        .padding(end = 5.dp)
                 )
                 Text(
-                    text = "About Us",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight(500),
-                    fontFamily = Poppins
+                    text = "amhi_zadkari",
+                    color = MaterialTheme.colors.linkBlue
                 )
+            }
 
-                Spacer(modifier = Modifier.padding(20.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 25.dp,bottom = 10.dp)
+                    .clickable {
+
+                    }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.facebook),
+                    contentDescription = "Facebook",
+                    modifier = Modifier
+                        .size(35.dp)
+                        .padding(end = 5.dp)
+                )
+                Text(
+                    text = "amhi_zadkari",
+                    color = MaterialTheme.colors.linkBlue
+                )
             }
         }
-    }
-}
-class ArcShape : Shape {
-    override fun createOutline(
-        size: Size,
-        layoutDirection: LayoutDirection,
-        density: Density
-    ): Outline {
-       val rect = size.toRect()
-        val path = Path().apply {
-            addArc(rect,180f,180f)
-            lineTo(size.width,size.height)
-            lineTo(0f,size.height)
-        }
-        return Outline.Generic(path)
     }
 }
