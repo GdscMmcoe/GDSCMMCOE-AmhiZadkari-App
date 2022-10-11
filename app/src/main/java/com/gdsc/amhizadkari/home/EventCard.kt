@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Event
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,9 +26,12 @@ fun EventCard(e: Event) {
     Surface(
         shape = RoundedCornerShape(20.dp),
         elevation = 5.dp,
-        modifier = Modifier.size(120.dp, 160.dp)
+        modifier = Modifier.size(120.dp, 160.dp),
+        color = Color(0xffD8F2D4)
     ) {
-        Column(modifier = Modifier.padding(7.dp)) {
+        Column(
+            modifier = Modifier.padding(7.dp)
+        ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
