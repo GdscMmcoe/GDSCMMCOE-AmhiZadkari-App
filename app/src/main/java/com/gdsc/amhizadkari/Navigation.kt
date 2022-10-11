@@ -3,6 +3,7 @@ package com.gdsc.amhizadkari
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -14,14 +15,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.*
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -94,26 +101,32 @@ fun Navigation() {
                     bottomBar = {
                         BottomNavigation(
                             backgroundColor = Color(0xff86AF7F),
-                            elevation = 20.dp,
-                            modifier = Modifier.clip(RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp))
+                            modifier = Modifier.fillMaxWidth()
+                                .size(65.dp)
+                                .clip(ArcShape())
                         ) {
-                            val navBackStackEntry by navController.currentBackStackEntryAsState()
-                            val currentDestination = navBackStackEntry?.destination
-                            items.forEach { item ->
-                                BottomNavigationItem(
-                                    icon = { Icon(imageVector = item.icon!!, contentDescription = null) },
-                                    label = { Text(text = item.label!!, fontSize = 10.sp) },
-                                    selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
-                                    onClick = {
-                                        navController.navigate(item.route) {
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                        modifier = Modifier.fillMaxWidth()
+                            ) {
+                                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                                val currentDestination = navBackStackEntry?.destination
+                                items.forEach { item ->
+                                    BottomNavigationItem(
+                                        icon = { Icon(imageVector = item.icon!!, contentDescription = null) },
+                                        label = { Text(text = item.label!!, fontSize = 10.sp) },
+                                        selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
+                                        onClick = {
+                                            navController.navigate(item.route) {
+                                                popUpTo(navController.graph.findStartDestination().id) {
+                                                    saveState = true
+                                                }
+                                                launchSingleTop = true
+                                                restoreState = true
                                             }
-                                            launchSingleTop = true
-                                            restoreState = true
                                         }
-                                    }
-                                )
+                                    )
+                                }
                             }
                         }
                     }
@@ -121,13 +134,25 @@ fun Navigation() {
                     NavHost(
                         navController,
                         startDestination = Routes.Home.route,
-                        Modifier.padding(innerPadding)
+                        Modifier
+                            .padding(innerPadding)
+                            .padding(top = 15.dp)
                     ) {
-                        composable(Routes.Home.route) { HomeScreen(navController = navController) }
-                        composable(Routes.Donate.route) { Text(text = "TODO") }
-                        composable(Routes.PastEvents.route) { PastEventScreen(navController) }
-                        composable(Routes.UpcomingEvents.route) { UpcomingScreen(navController = navController) }
-                        composable(Routes.AboutUs.route) { AboutUsScreen(navController) }
+                        composable(Routes.Home.route) {
+                            HomeScreen(navController)
+                        }
+                        composable(Routes.Donate.route) {
+                            Text(text = "TODO")
+                        }
+                        composable(Routes.PastEvents.route) {
+                            PastEventScreen(navController)
+                        }
+                        composable(Routes.UpcomingEvents.route) {
+                            UpcomingScreen(navController)
+                        }
+                        composable(Routes.AboutUs.route) {
+                            AboutUsScreen(navController)
+                        }
                     }
                 }
             }
@@ -138,12 +163,11 @@ fun Navigation() {
 @Preview(showSystemUi = true)
 @Composable
 fun DrawerContent() {
-    val scrollState = rememberScrollState()
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.verticalScroll(scrollState)
+            modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
             Surface(
                 elevation = 10.dp
@@ -259,4 +283,18 @@ fun DrawerContent() {
         }
     }
 }
-
+class ArcShape : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+       val rect = size.toRect()
+        val path = Path().apply {
+            addArc(rect,180f,180f)
+            lineTo(size.width,size.height)
+            lineTo(0f,size.height)
+        }
+        return Outline.Generic(path)
+    }
+}
