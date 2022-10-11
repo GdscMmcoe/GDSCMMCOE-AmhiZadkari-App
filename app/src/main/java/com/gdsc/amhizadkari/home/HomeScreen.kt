@@ -42,7 +42,6 @@ fun HomeScreen(
     val count = viewModel.imageList.size
     val current = viewModel.index
     val imageUri = viewModel.imageList[current]
-    val scrollState = rememberScrollState()
     val pastEventList = viewModel.pastEventList
     val upcomingEventList = viewModel.upcomingEventList
 
@@ -59,8 +58,9 @@ fun HomeScreen(
                 contentDescription = "Image",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .size(height = 240.dp, width = 400.dp)
-                    .padding(top = 25.dp, start = 25.dp, end = 25.dp, bottom = 10.dp)
+                    .size(height = 250.dp, width = 420.dp)
+                    .padding(top = 25.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
+                    .clip(RoundedCornerShape(20.dp))
             )
             DotsIndicator(
                 dots = count,

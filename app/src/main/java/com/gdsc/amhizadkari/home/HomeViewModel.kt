@@ -22,8 +22,12 @@ class HomeViewModel :ViewModel(){
     }
 
     val imageList: List<Int> = mutableStateListOf(
-        R.drawable.zadkari_logo,
-        R.drawable.start_page
+        R.drawable.image1,
+        R.drawable.image2,
+        R.drawable.image3,
+        R.drawable.image4,
+        R.drawable.image5,
+        R.drawable.image6,
     )
 
     val pastEventList: List<Event> = mutableStateListOf(
