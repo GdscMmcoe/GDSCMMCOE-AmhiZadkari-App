@@ -15,13 +15,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gdsc.amhizadkari.data.Events
+import com.gdsc.amhizadkari.data.Event
 import com.gdsc.amhizadkari.ui.theme.AppTheme
 import com.gdsc.amhizadkari.ui.theme.Poppins
 
 
 @Composable
-fun EventCard(e: Events) {
+fun EventCard(e: Event) {
     Surface(
         shape = RoundedCornerShape(20.dp),
         elevation = 5.dp,
@@ -82,7 +82,7 @@ fun EventCard(e: Events) {
 fun PreviewMessageCard() {
     AppTheme {
         Surface {
-            EventCard(Events("Independence Day Special", "10/10/2022"))
+            EventCard(Event(1,"Independence Day Special", "10/10/2022",null))
         }
     }
 }
