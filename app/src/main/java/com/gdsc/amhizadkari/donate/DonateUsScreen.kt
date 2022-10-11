@@ -1,5 +1,8 @@
 package com.gdsc.amhizadkari.donate
 
+import android.content.Intent
+import android.content.res.Configuration
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +32,9 @@ fun DonateUsScreen(
     navController: NavController?,
     viewModel: DonateViewModel = viewModel()
 ) {
+
+    val context = LocalContext.current
+
     Box(modifier = Modifier.fillMaxSize()){
         Column(
             verticalArrangement = Arrangement.Top,
@@ -80,7 +87,11 @@ fun DonateUsScreen(
                     .padding(20.dp)
             ) {
                 Button(
-                    onClick = { viewModel.donate() },
+                    onClick = {
+                        val url = "" //TODO: Enter QR url
+                        val intent = Intent("android.intent.action.VIEW", Uri.parse(url))
+                        context.startActivity(intent)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(60.dp)
@@ -103,8 +114,12 @@ fun DonateUsScreen(
     }
 }
 
-
 @Preview(showSystemUi = true)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark"
+)
 @Composable
 fun DonatePrev() {
     DonateUsScreen(navController = null)

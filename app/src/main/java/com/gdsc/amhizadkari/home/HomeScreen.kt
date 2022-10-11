@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.ui.theme.Poppins
-import com.gdsc.amhizadkari.ui.theme.treeGreen
+import com.gdsc.amhizadkari.ui.theme.rowGreen
 
 @Preview(showSystemUi = true)
 @Composable
@@ -76,14 +76,14 @@ fun HomeScreen(
                     .padding(20.dp)
                     .size(40.dp)
                     .clip(RoundedCornerShape(50.dp))
-                    .background(MaterialTheme.colors.treeGreen)
+                    .background(MaterialTheme.colors.rowGreen)
             ) {
                 Text(
                     text = "Past Events",
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
                     fontFamily = Poppins,
-                    color = MaterialTheme.colors.onBackground,
+                    color = Color.Black,
                     modifier = Modifier.padding(start = 20.dp)
                 )
             }
@@ -105,14 +105,14 @@ fun HomeScreen(
                     .padding(20.dp)
                     .size(40.dp)
                     .clip(RoundedCornerShape(50.dp))
-                    .background(MaterialTheme.colors.treeGreen)
+                    .background(MaterialTheme.colors.rowGreen)
             ) {
                 Text(
                     text = "Upcoming Events",
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
                     fontFamily = Poppins,
-                    color = MaterialTheme.colors.onBackground,
+                    color = Color.Black,
                     modifier = Modifier.padding(start = 20.dp)
                 )
             }

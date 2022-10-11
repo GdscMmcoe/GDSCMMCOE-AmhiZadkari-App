@@ -1,6 +1,7 @@
 package com.gdsc.amhizadkari.ui.theme
 
 import androidx.compose.material.Colors
+import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -14,6 +15,13 @@ val Colors.linkBlue:Color
 @Composable
 get() = if(isLight) Color(0xff0000ee) else Color(0xff00FFFF)
 
-val Colors.treeGreen:Color
+val Colors.rowGreen:Color
 @Composable
-get() = if(isLight) Color(0xffc2e0bd) else Color(0xFF08731A)
+get() = Color(0xffACCAA7)
+
+
+
+val Colors.CardColor:Color
+    @Composable
+    get() = Color(0xffD8F2D4)
+

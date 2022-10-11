@@ -109,8 +109,8 @@ fun BottomNav(navController: NavController) {
                                 val currentDestination = navBackStackEntry?.destination
                                 items.forEach { item ->
                                     BottomNavigationItem(
-                                        icon = { Icon(imageVector = item.icon!!, contentDescription = null) },
-                                        label = { Text(text = item.label!!, fontSize = 10.sp) },
+                                        icon = { Icon(imageVector = item.icon!!, contentDescription = null, tint = Color.Black) },
+                                        label = { Text(text = item.label!!, fontSize = 10.sp, color = Color.Black) },
                                         selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                                         onClick = {
                                             bottomNavController.navigate(item.route) {
@@ -175,7 +175,8 @@ fun DrawerContent(navController: NavController) {
                         text = "Amhi Zadkari",
                         fontFamily = Poppins,
                         fontSize = 24.sp,
-                        fontWeight = FontWeight(600)
+                        fontWeight = FontWeight(600),
+                        color = Color.Black
                     )
                 }
             }
