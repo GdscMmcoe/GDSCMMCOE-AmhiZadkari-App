@@ -117,13 +117,23 @@ fun HomeScreen(
                 )
             }
 
-            LazyRow(
-                contentPadding = PaddingValues(bottom = 15.dp)
-            ){
-                items(upcomingEventList){item ->
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    EventCard(e = item)
-                    Spacer(modifier = Modifier.padding(10.dp))
+            if(upcomingEventList.isEmpty()){
+                Text(
+                    text = "No Events yet, stay tuned for more!",
+                    fontSize = 20.sp,
+                    fontFamily = Poppins,
+                    modifier = Modifier.padding(start = 30.dp, end = 30.dp, bottom = 30.dp)
+                )
+            }
+            else {
+                LazyRow(
+                    contentPadding = PaddingValues(bottom = 15.dp)
+                ) {
+                    items(upcomingEventList) { item ->
+                        Spacer(modifier = Modifier.padding(10.dp))
+                        EventCard(e = item)
+                        Spacer(modifier = Modifier.padding(10.dp))
+                    }
                 }
             }
         }

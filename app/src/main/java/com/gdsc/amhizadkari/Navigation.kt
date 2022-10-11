@@ -35,6 +35,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.gdsc.amhizadkari.donate.DonateUsScreen
 import com.gdsc.amhizadkari.home.HomeScreen
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.ui.theme.linkBlue
@@ -137,7 +138,7 @@ fun BottomNav(navController: NavController) {
                             HomeScreen(bottomNavController)
                         }
                         composable(Routes.Donate.route) {
-                            Text(text = "TODO")
+                            DonateUsScreen(bottomNavController)
                         }
                         composable(Routes.AboutUs.route) {
                             AboutScreen(bottomNavController)
@@ -275,7 +276,7 @@ fun DrawerContent(navController: NavController) {
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 25.dp,bottom = 10.dp)
+                    .padding(start = 25.dp, bottom = 10.dp)
                     .clickable {
                         val intent = Intent(
                             "android.intent.action.VIEW",
@@ -302,7 +303,7 @@ fun DrawerContent(navController: NavController) {
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 25.dp,bottom = 10.dp)
+                    .padding(start = 25.dp, bottom = 10.dp)
                     .clickable {
 
                     }
