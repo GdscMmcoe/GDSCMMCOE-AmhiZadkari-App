@@ -97,7 +97,7 @@ fun SplashScreen(navController: NavController) {
         }
     }
     LaunchedEffect(key1 = true){
-        delay(2500)
+        delay(2000)
         navController.navigate("Main")
     }
 

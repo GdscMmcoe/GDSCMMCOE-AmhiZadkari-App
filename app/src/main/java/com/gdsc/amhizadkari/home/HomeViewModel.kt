@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gdsc.amhizadkari.R
-import com.gdsc.amhizadkari.data.Events
+import com.gdsc.amhizadkari.data.Event
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -26,12 +26,20 @@ class HomeViewModel :ViewModel(){
         R.drawable.start_page
     )
 
-    val eventList: List<Events> = mutableStateListOf(
-        Events("Independence day","25/20/2022"),
-        Events("Independence day","25/20/2022"),
-        Events("Independence day","25/20/2022"),
-        Events("Independence day","25/20/2022"),
-        Events("Independence day","25/20/2022")
+    val pastEventList: List<Event> = mutableStateListOf(
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+    )
+
+    val upcomingEventList: List<Event> = mutableStateListOf(
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
+        Event(1,"Independence day","25/20/2022",null),
     )
 
     var index by mutableStateOf(0)

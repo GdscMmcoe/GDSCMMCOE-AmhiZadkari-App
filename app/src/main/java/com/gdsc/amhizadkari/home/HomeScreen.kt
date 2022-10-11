@@ -43,7 +43,8 @@ fun HomeScreen(
     val current = viewModel.index
     val imageUri = viewModel.imageList[current]
     val scrollState = rememberScrollState()
-    val eventList = viewModel.eventList
+    val pastEventList = viewModel.pastEventList
+    val upcomingEventList = viewModel.upcomingEventList
 
     Box(modifier = Modifier.fillMaxSize()){
         Column(
@@ -51,7 +52,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(scrollState)
+                .verticalScroll(rememberScrollState())
         ) {
             Image(
                 painter = painterResource(id = imageUri),
@@ -87,12 +88,12 @@ fun HomeScreen(
                 )
             }
             LazyRow(
-                modifier = Modifier.padding(end = 10.dp),
                 contentPadding = PaddingValues(bottom = 15.dp)
             ){
-                items(eventList) {item ->
-                    Spacer(modifier = Modifier.padding(20.dp))
+                items(pastEventList) {item ->
+                    Spacer(modifier = Modifier.padding(10.dp))
                     EventCard(item)
+                    Spacer(modifier = Modifier.padding(10.dp))
                 }
             }
 
@@ -114,6 +115,16 @@ fun HomeScreen(
                     color = MaterialTheme.colors.onBackground,
                     modifier = Modifier.padding(start = 20.dp)
                 )
+            }
+
+            LazyRow(
+                contentPadding = PaddingValues(bottom = 15.dp)
+            ){
+                items(upcomingEventList){item ->
+                    Spacer(modifier = Modifier.padding(10.dp))
+                    EventCard(e = item)
+                    Spacer(modifier = Modifier.padding(10.dp))
+                }
             }
         }
     }
