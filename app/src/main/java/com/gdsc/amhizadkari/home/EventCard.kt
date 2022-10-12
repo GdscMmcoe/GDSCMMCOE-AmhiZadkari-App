@@ -1,7 +1,7 @@
 package com.gdsc.amhizadkari.home
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -13,7 +13,6 @@ import androidx.compose.material.icons.filled.Event
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,11 +24,12 @@ import com.gdsc.amhizadkari.ui.theme.Poppins
 
 
 @Composable
-fun EventCard(e: Event) {
+fun EventCard(e: Event,onClick: ()-> Unit) {
     Surface(
         shape = RoundedCornerShape(20.dp),
         elevation = 5.dp,
-        modifier = Modifier.size(120.dp, 160.dp),
+        modifier = Modifier.size(120.dp, 160.dp)
+            .clickable { onClick() },
         color = MaterialTheme.colors.CardColor
     ) {
         Column(
@@ -47,7 +47,6 @@ fun EventCard(e: Event) {
                     fontSize = 12.sp,
                     fontFamily = Poppins,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
                 )
             }
             Row(
@@ -61,7 +60,6 @@ fun EventCard(e: Event) {
                     imageVector = Icons.Default.Event,
                     contentDescription = "Event",
                     modifier = Modifier.size(25.dp),
-                    tint = Color.Black
                 )
             }
             Row(
@@ -75,7 +73,6 @@ fun EventCard(e: Event) {
                     text = e.date,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color.Black
                 )
             }
         }
@@ -92,7 +89,7 @@ fun EventCard(e: Event) {
 fun PreviewMessageCard() {
     AppTheme {
         Surface {
-            EventCard(Event(1,"Independence Day Special", "10/10/2022",null))
+            EventCard(Event(1,"Independence Day Special", "10/10/2022",null)){}
         }
     }
 }

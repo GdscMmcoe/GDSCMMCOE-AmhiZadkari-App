@@ -1,5 +1,6 @@
 package com.gdsc.amhizadkari.event
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.gdsc.amhizadkari.ui.theme.Poppins
 
 //private val repository: EventRepository
@@ -34,9 +36,11 @@ import com.gdsc.amhizadkari.ui.theme.Poppins
 fun EventScreen(
     title: String,
     content: String,
+    navController: NavController?,
     viewModel: EventViewModel = viewModel()
 ) {
     val imageList = viewModel.imageList
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -96,11 +100,15 @@ fun EventScreen(
             }
         }
     }
+
+    BackHandler {
+        navController?.popBackStack()
+    }
 }
 
 
 @Preview(showSystemUi = true)
 @Composable
 fun EventPrev() {
-    EventScreen(title = "Independence Day", content = LoremIpsum(70).values.joinToString())
+    EventScreen(title = "Independence Day", content = LoremIpsum(70).values.joinToString(),null)
 }

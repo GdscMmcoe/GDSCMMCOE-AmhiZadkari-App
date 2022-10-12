@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import kotlinx.coroutines.delay
 import com.gdsc.amhizadkari.R
+import com.gdsc.amhizadkari.Routes
 
 @Composable
 fun SplashScreen(navController: NavController) {
@@ -53,7 +54,7 @@ fun SplashScreen(navController: NavController) {
     }
     LaunchedEffect(key1 = true) {
         delay(2000)
-        navController.navigate("Main")
+        navController.navigate(Routes.BottomNav.route)
     }
 }
 

@@ -37,8 +37,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.gdsc.amhizadkari.donate.DonateUsScreen
 import com.gdsc.amhizadkari.home.HomeScreen
+import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.ui.theme.linkBlue
+import com.gdsc.amhizadkari.ui.theme.rowColor
 import kotlinx.coroutines.launch
 
 
@@ -98,7 +100,7 @@ fun BottomNav(navController: NavController) {
                     },
                     bottomBar = {
                         BottomNavigation(
-                            backgroundColor = Color(0xff86AF7F),
+                            backgroundColor = MaterialTheme.colors.rowColor,
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Row(
@@ -109,8 +111,8 @@ fun BottomNav(navController: NavController) {
                                 val currentDestination = navBackStackEntry?.destination
                                 items.forEach { item ->
                                     BottomNavigationItem(
-                                        icon = { Icon(imageVector = item.icon!!, contentDescription = null, tint = Color.Black) },
-                                        label = { Text(text = item.label!!, fontSize = 10.sp, color = Color.Black) },
+                                        icon = { Icon(imageVector = item.icon!!, contentDescription = null) },
+                                        label = { Text(text = item.label!!, fontSize = 10.sp) },
                                         selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                                         onClick = {
                                             bottomNavController.navigate(item.route) {
@@ -135,13 +137,13 @@ fun BottomNav(navController: NavController) {
                             .padding(top = 15.dp)
                     ) {
                         composable(Routes.Home.route) {
-                            HomeScreen(bottomNavController)
+                            HomeScreen(navController)
                         }
                         composable(Routes.Donate.route) {
-                            DonateUsScreen(bottomNavController)
+                            DonateUsScreen(navController)
                         }
                         composable(Routes.AboutUs.route) {
-                            AboutScreen(bottomNavController)
+                            AboutScreen(navController)
                         }
                     }
                 }
@@ -167,7 +169,7 @@ fun DrawerContent(navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .background(Color(0xffD8F2D4))
+                        .background(MaterialTheme.colors.CardColor)
                         .fillMaxWidth()
                         .padding(50.dp)
                 ) {

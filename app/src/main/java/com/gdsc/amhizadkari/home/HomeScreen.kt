@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.ui.theme.Poppins
-import com.gdsc.amhizadkari.ui.theme.rowGreen
+import com.gdsc.amhizadkari.ui.theme.rowColor
 
 @Preview(showSystemUi = true)
 @Composable
@@ -76,14 +76,14 @@ fun HomeScreen(
                     .padding(20.dp)
                     .size(40.dp)
                     .clip(RoundedCornerShape(50.dp))
-                    .background(MaterialTheme.colors.rowGreen)
+                    .background(MaterialTheme.colors.rowColor)
             ) {
                 Text(
                     text = "Past Events",
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
                     fontFamily = Poppins,
-                    color = Color.Black,
+                    //color = Color.Black,
                     modifier = Modifier.padding(start = 20.dp)
                 )
             }
@@ -92,7 +92,9 @@ fun HomeScreen(
             ){
                 items(pastEventList) {item ->
                     Spacer(modifier = Modifier.padding(10.dp))
-                    EventCard(item)
+                    EventCard(item){
+                        viewModel.eventCardClick(item, navController)
+                    }
                     Spacer(modifier = Modifier.padding(10.dp))
                 }
             }
@@ -105,14 +107,13 @@ fun HomeScreen(
                     .padding(20.dp)
                     .size(40.dp)
                     .clip(RoundedCornerShape(50.dp))
-                    .background(MaterialTheme.colors.rowGreen)
+                    .background(MaterialTheme.colors.rowColor)
             ) {
                 Text(
                     text = "Upcoming Events",
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
                     fontFamily = Poppins,
-                    color = Color.Black,
                     modifier = Modifier.padding(start = 20.dp)
                 )
             }
@@ -131,7 +132,9 @@ fun HomeScreen(
                 ) {
                     items(upcomingEventList) { item ->
                         Spacer(modifier = Modifier.padding(10.dp))
-                        EventCard(e = item)
+                        EventCard(e = item){
+                            viewModel.eventCardClick(item,navController)
+                        }
                         Spacer(modifier = Modifier.padding(10.dp))
                     }
                 }

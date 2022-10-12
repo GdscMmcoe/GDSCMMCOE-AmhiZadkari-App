@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.ui.theme.Poppins
+import com.gdsc.amhizadkari.ui.theme.rowColor
 
 @Composable
 fun DonateUsScreen(
@@ -88,7 +89,7 @@ fun DonateUsScreen(
             ) {
                 Button(
                     onClick = {
-                        val url = "" //TODO: Enter QR url
+                        val url = "upi://pay?pa=khushalsinhag@oksbi&pn=khushalsinha%20garud&aid=uGICAgIC1yv7NYw"
                         val intent = Intent("android.intent.action.VIEW", Uri.parse(url))
                         context.startActivity(intent)
                     },
@@ -98,12 +99,12 @@ fun DonateUsScreen(
                         .padding(start = 55.dp, end = 55.dp)
                         .clip(RoundedCornerShape(10.dp)),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xff44911B),
+                        backgroundColor = MaterialTheme.colors.rowColor,
                         contentColor = Color.White
                     )
                 ) {
                     Text(
-                        text = "Donate",
+                        text = "Donate with UPI",
                         fontSize = 20.sp,
                         fontFamily = Poppins
                     )
