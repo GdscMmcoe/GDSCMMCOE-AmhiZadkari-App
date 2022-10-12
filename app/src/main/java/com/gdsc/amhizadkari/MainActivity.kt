@@ -7,10 +7,13 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.gdsc.amhizadkari.contactus.ContactUsScreen
+import com.gdsc.amhizadkari.event.EventScreen
 import com.gdsc.amhizadkari.splash.SplashScreen
 import com.gdsc.amhizadkari.ui.theme.AppTheme
 import kotlin.system.exitProcess
@@ -46,7 +49,7 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "splash"
+        startDestination = Routes.SplashScreen.route
     ){
         composable(Routes.SplashScreen.route){
             SplashScreen(navController)
@@ -56,6 +59,19 @@ fun Navigation() {
         }
         composable(Routes.ContactUs.route){
             ContactUsScreen(navController)
+        }
+        composable(
+            Routes.EventScreen.route + "/{event_name}/{event_content}",
+            arguments = listOf(
+                navArgument("event_name"){ type = NavType.StringType },
+                navArgument("event_content"){ type = NavType.StringType }
+            )
+        ){
+            EventScreen(
+                title = it.arguments?.getString("event_name") ?: "",
+                content = it.arguments?.getString("event_content") ?: "",
+                navController
+            )
         }
     }
 
