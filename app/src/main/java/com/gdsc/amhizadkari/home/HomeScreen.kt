@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
@@ -15,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ScaleFactor
+import androidx.compose.ui.layout.lerp
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +27,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.ui.theme.rowColor
+import com.google.accompanist.pager.*
+import kotlin.math.absoluteValue
+
 
 @Preview(showSystemUi = true)
 @Composable
@@ -33,6 +37,7 @@ fun Prev() {
     HomeScreen(null)
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(
     navController: NavController?,
@@ -40,10 +45,10 @@ fun HomeScreen(
 
 ) {
     val count = viewModel.imageList.size
-    val current = viewModel.index
-    val imageUri = viewModel.imageList[current]
+    val imageList = viewModel.imageList
     val pastEventList = viewModel.pastEventList
     val upcomingEventList = viewModel.upcomingEventList
+    val pagerState = rememberPagerState()
 
     Box(modifier = Modifier.fillMaxSize()){
         Column(
@@ -53,19 +58,44 @@ fun HomeScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            Image(
-                painter = painterResource(id = imageUri),
-                contentDescription = "Image",
-                contentScale = ContentScale.FillBounds,
+            HorizontalPager(
+                count = count,
+                state = pagerState,
+                contentPadding = PaddingValues(horizontal = 20.dp),
+
+            ) { page ->
+                Image(
+                    painter = painterResource(id = imageList[page]),
+                    contentDescription = "Image",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .size(height = 250.dp, width = 420.dp)
+                        .padding(top = 25.dp, start = 5.dp, end = 5.dp, bottom = 10.dp)
+                        .graphicsLayer {
+                            val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                            lerp(
+                                start = ScaleFactor(0.85f, 0.85f),
+                                stop = ScaleFactor(1f, 1f),
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            ).also { scale ->
+                                scaleX = scale.scaleX
+                                scaleY = scale.scaleY
+                            }
+                            alpha = lerp(
+                                start = ScaleFactor(0.5f, 0.5f),
+                                stop = ScaleFactor(1f, 1f),
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            ).scaleY
+                        }
+                        .clip(RoundedCornerShape(20.dp))
+                )
+            }
+
+            HorizontalPagerIndicator(
+                pagerState = pagerState,
                 modifier = Modifier
-                    .size(height = 250.dp, width = 420.dp)
-                    .padding(top = 25.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
-                    .clip(RoundedCornerShape(20.dp))
-            )
-            DotsIndicator(
-                dots = count,
-                selected = current,
-                modifier = Modifier.padding(bottom = 20.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .padding(16.dp),
             )
 
             Row(
@@ -87,6 +117,8 @@ fun HomeScreen(
                     modifier = Modifier.padding(start = 20.dp)
                 )
             }
+
+
             LazyRow(
                 contentPadding = PaddingValues(bottom = 15.dp)
             ){
@@ -138,45 +170,6 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.padding(10.dp))
                     }
                 }
-            }
-        }
-    }
-}
-
-
-@Composable
-fun DotsIndicator(
-    dots: Int,
-    selected: Int,
-    modifier: Modifier = Modifier
-) {
-
-    LazyRow(
-        horizontalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-    ) {
-
-        items(dots) { index ->
-            if (index == selected) {
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(color = Color.Blue)
-                )
-            } else {
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(color = Color.LightGray)
-                )
-            }
-
-            if (index != dots - 1) {
-                Spacer(modifier = Modifier.padding(horizontal = 2.dp))
             }
         }
     }

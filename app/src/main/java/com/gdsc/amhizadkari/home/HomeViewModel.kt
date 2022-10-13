@@ -1,29 +1,14 @@
 package com.gdsc.amhizadkari.home
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.Routes
 import com.gdsc.amhizadkari.data.Event
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class HomeViewModel :ViewModel(){
-    init {
-        viewModelScope.launch {
-            while (true) {
-                delay(6000)
-                nextImage()
-            }
-        }
-    }
-
     val imageList: List<Int> = mutableStateListOf(
         R.drawable.image1,
         R.drawable.image2,
@@ -49,14 +34,6 @@ class HomeViewModel :ViewModel(){
         Event(1,"Independence day","25/20/2022",null),
     )
 
-    var index by mutableStateOf(0)
-
-    private fun nextImage(){
-        index++
-        if(index >= imageList.size){
-            index = 0
-        }
-    }
 
     fun eventCardClick(item: Event, navController: NavController?) {
         navController?.navigate(Routes.EventScreen.route + "/${item.eventName}/${item.eventContent}")
