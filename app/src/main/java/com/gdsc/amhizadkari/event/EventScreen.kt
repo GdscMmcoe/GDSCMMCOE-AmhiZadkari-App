@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,92 +49,105 @@ fun EventScreen(
     val imageList = viewModel.imageList
     val pagerState = rememberPagerState()
 
-        Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
+    Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp)
+        ) {
+            IconButton(onClick = { navController?.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    modifier = Modifier.padding(start = 5.dp,end = 10.dp)
+                )
+            }
+            Text(
+                text = title,
+                fontFamily = Poppins,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp
+            )
+        }
+
+        HorizontalPager(
+            count = imageList.size,
+            state = pagerState,
+            contentPadding = PaddingValues(horizontal = 20.dp),
+
+            ) { page ->
+            Image(
+                painter = painterResource(id = imageList[page]),
+                contentDescription = "Image",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .size(height = 250.dp, width = 420.dp)
+                    .padding(top = 20.dp, start = 5.dp, end = 5.dp, bottom = 10.dp)
+                    .graphicsLayer {
+                        val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                        lerp(
+                            start = ScaleFactor(0.85f, 0.85f),
+                            stop = ScaleFactor(1f, 1f),
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        ).also { scale ->
+                            scaleX = scale.scaleX
+                            scaleY = scale.scaleY
+                        }
+                        alpha = lerp(
+                            start = ScaleFactor(0.5f, 0.5f),
+                            stop = ScaleFactor(1f, 1f),
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        ).scaleY
+                    }
+                    .clip(RoundedCornerShape(20.dp))
+            )
+        }
+
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(16.dp),
+        )
+
+        Card(
+            elevation = 10.dp,
+            backgroundColor = MaterialTheme.colors.CardColor,
+            shape = RoundedCornerShape(40.dp),
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .padding(start = 10.dp, end = 10.dp)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, top = 10.dp)
+                    .fillMaxSize()
+                    .padding(start = 10.dp, end = 10.dp)
             ) {
                 Text(
-                    text = title,
+                    text = content,
                     fontFamily = Poppins,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp
-                )
-            }
-
-            HorizontalPager(
-                count = imageList.size,
-                state = pagerState,
-                contentPadding = PaddingValues(horizontal = 20.dp),
-
-                ) { page ->
-                Image(
-                    painter = painterResource(id = imageList[page]),
-                    contentDescription = "Image",
-                    contentScale = ContentScale.FillBounds,
-                    modifier = Modifier
-                        .size(height = 250.dp, width = 420.dp)
-                        .padding(top = 20.dp, start = 5.dp, end = 5.dp, bottom = 10.dp)
-                        .graphicsLayer {
-                            val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                            lerp(
-                                start = ScaleFactor(0.85f, 0.85f),
-                                stop = ScaleFactor(1f, 1f),
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            ).also { scale ->
-                                scaleX = scale.scaleX
-                                scaleY = scale.scaleY
-                            }
-                            alpha = lerp(
-                                start = ScaleFactor(0.5f, 0.5f),
-                                stop = ScaleFactor(1f, 1f),
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            ).scaleY
-                        }
-                        .clip(RoundedCornerShape(20.dp))
-                )
-            }
-
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(16.dp),
-            )
-
-            Card(
-                elevation = 10.dp,
-                backgroundColor = MaterialTheme.colors.CardColor,
-                shape = RoundedCornerShape(40.dp),
-                modifier = Modifier.fillMaxSize()
-                    .padding(start = 10.dp,end = 10.dp)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 10.dp, end = 10.dp)
-                ) {
-                    Text(
-                        text = content,
-                        fontFamily = Poppins,
-                        fontWeight = FontWeight(500),
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(top = 20.dp,start = 10.dp,end = 10.dp, bottom = 10.dp)
+                    fontWeight = FontWeight(500),
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(
+                        top = 20.dp,
+                        start = 10.dp,
+                        end = 10.dp,
+                        bottom = 10.dp
                     )
-                }
+                )
             }
         }
+    }
 
 
     BackHandler {
@@ -146,5 +159,5 @@ fun EventScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun EventPrev() {
-    EventScreen(title = "Independence Day", content = LoremIpsum(70).values.joinToString(),null)
+    EventScreen(title = "Independence Day", content = LoremIpsum(70).values.joinToString(), null)
 }

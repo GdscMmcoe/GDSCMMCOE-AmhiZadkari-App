@@ -11,10 +11,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,21 +38,34 @@ fun ContactUsScreen(navController: NavController?) {
         navController?.popBackStack()
     }
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(MaterialTheme.colors.background)
     ){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .padding(vertical = 20.dp)
     ) {
-        Text(
-            text = "Contact Us",
-            fontFamily = Poppins,
-            fontSize = 26.sp,
-            fontWeight = FontWeight.Bold,
-            color = if(isSystemInDarkTheme()) Color.White else Color.Black
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            IconButton(onClick = { navController?.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    modifier = Modifier.padding(start = 5.dp,end = 10.dp)
+                )
+            }
+            Text(
+                text = "Contact Us",
+                fontFamily = Poppins,
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+                color = if(isSystemInDarkTheme()) Color.White else Color.Black
+            )
+        }
         LazyColumn(modifier = Modifier.padding(vertical = 10.dp)) {
 
             items(contactList) { name ->
@@ -75,18 +87,18 @@ fun ListItem(name: String) {
         modifier = Modifier
             .padding(vertical = 5.dp, horizontal = 10.dp)
             .clickable {
-                val intent = Intent(Intent.ACTION_DIAL)
-                if (name == "Kushal Singh Garud")
-                    intent.data = Uri.parse("9529968388")
+                var phoneNo = ""
+                if (name == "Kaushal Singh Garud")
+                    phoneNo = "9529968388"
                 if (name == "Pratima Garud")
-                    intent.data = Uri.parse("9665859394")
+                    phoneNo = "9665859394"
                 if (name == "Ketki")
-                    intent.data = Uri.parse("9112686229")
+                    phoneNo = "9112686229"
                 if (name == "Suraj Kakade")
-                    intent.data = Uri.parse("9767257776")
+                    phoneNo = "9767257776"
                 if (name == "Prateek")
-                    intent.data = Uri.parse("860013940")
-
+                    phoneNo = "860013940"
+                val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNo, null))
                 context.startActivity(intent)
 
             }
