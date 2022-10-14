@@ -5,8 +5,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
-import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,7 +18,8 @@ import com.gdsc.amhizadkari.contactus.ContactUsScreen
 import com.gdsc.amhizadkari.event.EventScreen
 import com.gdsc.amhizadkari.splash.SplashScreen
 import com.gdsc.amhizadkari.ui.theme.AppTheme
-import com.gdsc.amhizadkari.util.readData
+import com.gdsc.amhizadkari.ui.theme.CardColor
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
@@ -25,10 +27,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-//                Navigation()
-                Button(onClick = { readData() }) {
-
+                Navigation()
+                val green = MaterialTheme.colors.CardColor
+                val systemUiController = rememberSystemUiController()
+                DisposableEffect(key1 = systemUiController){
+                    systemUiController.setSystemBarsColor(
+                        color = green
+                    )
+                    onDispose {  }
                 }
+
             }
 
             var backPressTime = 0L
