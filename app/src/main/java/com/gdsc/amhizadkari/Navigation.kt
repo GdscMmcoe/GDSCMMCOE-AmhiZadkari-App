@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContactPhone
@@ -17,11 +18,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,8 +50,10 @@ fun BottomNav(navController: NavController) {
         Routes.Home,
         Routes.AboutUs
     )
+
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
 
 
 
@@ -68,6 +73,11 @@ fun BottomNav(navController: NavController) {
                             backgroundColor = MaterialTheme.colors.background,
                             contentColor = MaterialTheme.colors.onBackground,
                             title = {
+                                Image(
+                                    painter = painterResource(id = R.drawable.tree),
+                                    contentDescription = "Logo",
+                                    modifier = Modifier.size(25.dp)
+                                )
                                 Text(
                                     text = "Amhi Zadkari",
                                     fontSize = 26.sp,
@@ -97,7 +107,9 @@ fun BottomNav(navController: NavController) {
                     bottomBar = {
                         BottomNavigation(
                             backgroundColor = MaterialTheme.colors.rowColor,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
                         ) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -333,7 +345,17 @@ fun DrawerContent(navController: NavController) {
                     )
                 }
             }
-            Row(modifier = Modifier.padding(top = 20.dp)) {
+            Row(
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .clickable {
+                        val intent = Intent(
+                            "android.intent.action.VIEW",
+                            Uri.parse("https://gdsc.community.dev/marathwada-mitra-mandals-college-of-engineering-pune/")
+                        )
+                        context.startActivity(intent)
+                    }
+            ) {
                 Text(
                     text = "Developed and designed by <> GDSC MMCOE",
                     fontSize = 10.sp,
@@ -342,4 +364,10 @@ fun DrawerContent(navController: NavController) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun navPrev() {
+    Navigation()
 }
