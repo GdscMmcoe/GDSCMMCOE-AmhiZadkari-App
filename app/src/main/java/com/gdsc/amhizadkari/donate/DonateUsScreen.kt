@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.R
+import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
+import com.gdsc.amhizadkari.ui.theme.buttonColor
 import com.gdsc.amhizadkari.ui.theme.rowColor
 
 @Composable
@@ -51,7 +50,7 @@ fun DonateUsScreen(
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .size(height = 250.dp, width = 420.dp)
-                    .padding(top = 30.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
+                    .padding(top = 5.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
                     .clip(RoundedCornerShape(20.dp))
             )
 
@@ -68,19 +67,32 @@ fun DonateUsScreen(
                 )
             }
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
+            Card(
+                elevation = 5.dp,
+                backgroundColor = MaterialTheme.colors.CardColor,
+                shape = RoundedCornerShape(40.dp),
+                modifier = Modifier.fillMaxSize()
+                    .padding(start = 10.dp,end = 10.dp)
             ) {
-                Text(
-                    text = LoremIpsum(50).values.joinToString(),
-                    fontFamily = Poppins
-                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(20.dp)
+                    ) {
+                        Text(
+                            text = LoremIpsum(70).values.joinToString(),
+                            fontFamily = Poppins
+                        )
+                    }
+                }
             }
-
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
@@ -100,7 +112,7 @@ fun DonateUsScreen(
                         .padding(start = 55.dp, end = 55.dp)
                         .clip(RoundedCornerShape(10.dp)),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = MaterialTheme.colors.rowColor,
+                        backgroundColor = MaterialTheme.colors.buttonColor,
                         contentColor = Color.White
                     )
                 ) {
@@ -111,7 +123,6 @@ fun DonateUsScreen(
                     )
                 }
             }
-
         }
     }
 }
