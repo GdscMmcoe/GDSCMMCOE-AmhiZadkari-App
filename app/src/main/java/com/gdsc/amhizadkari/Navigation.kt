@@ -1,6 +1,6 @@
 package com.gdsc.amhizadkari
 
-import AboutScreen
+import AboutUsScreen
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -143,7 +143,7 @@ fun BottomNav(navController: NavController) {
                             DonateUsScreen(navController)
                         }
                         composable(Routes.AboutUs.route) {
-                            AboutScreen(navController)
+                            AboutUsScreen(navController)
                         }
                     }
                 }
