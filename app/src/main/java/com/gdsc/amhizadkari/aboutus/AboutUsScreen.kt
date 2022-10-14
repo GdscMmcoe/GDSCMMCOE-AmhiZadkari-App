@@ -22,18 +22,18 @@ fun AboutUsScreen(navController: NavController?) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 40.dp)
         ) {
             Text(
                 "About us",
                 fontSize = 40.sp,
                 fontFamily = Poppins,
                 fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(5.dp)
             )
             Card(
                 elevation = 10.dp,
                 backgroundColor = MaterialTheme.colors.CardColor,
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
 
@@ -45,7 +45,7 @@ fun AboutUsScreen(navController: NavController?) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 20.dp,end = 20.dp,top = 60.dp),
+                            .padding(start = 20.dp, end = 20.dp, top = 60.dp),
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -65,7 +65,7 @@ fun AboutUsScreen(navController: NavController?) {
         horizontalArrangement = Arrangement.End,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(end = 10.dp, top = 40.dp)
+            .padding(end = 10.dp, top = 10.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.tree),

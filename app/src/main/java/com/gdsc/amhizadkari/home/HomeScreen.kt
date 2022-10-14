@@ -70,7 +70,7 @@ fun HomeScreen(
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .size(height = 250.dp, width = 420.dp)
-                        .padding(top = 25.dp, start = 5.dp, end = 5.dp, bottom = 10.dp)
+                        .padding(top = 5.dp,start = 5.dp, end = 5.dp, bottom = 10.dp)
                         .graphicsLayer {
                             val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
                             lerp(
