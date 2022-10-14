@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
@@ -16,6 +17,7 @@ import com.gdsc.amhizadkari.contactus.ContactUsScreen
 import com.gdsc.amhizadkari.event.EventScreen
 import com.gdsc.amhizadkari.splash.SplashScreen
 import com.gdsc.amhizadkari.ui.theme.AppTheme
+import com.gdsc.amhizadkari.util.readData
 import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +25,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                Navigation()
+//                Navigation()
+                Button(onClick = { readData() }) {
+
+                }
             }
 
             var backPressTime = 0L
