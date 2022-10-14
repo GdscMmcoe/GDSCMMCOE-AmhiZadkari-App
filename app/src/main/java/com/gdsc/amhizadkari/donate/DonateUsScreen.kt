@@ -1,7 +1,6 @@
 package com.gdsc.amhizadkari.donate
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -27,7 +26,6 @@ import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.ui.theme.buttonColor
-import com.gdsc.amhizadkari.ui.theme.rowColor
 
 @Composable
 fun DonateUsScreen(
@@ -35,14 +33,19 @@ fun DonateUsScreen(
 ) {
 
     val context = LocalContext.current
-
-    Box(modifier = Modifier.fillMaxSize()){
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
         ) {
             Image(
                 painter = painterResource(id = R.drawable.image6),
@@ -50,29 +53,31 @@ fun DonateUsScreen(
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .size(height = 250.dp, width = 420.dp)
-                    .padding(top = 5.dp, start = 20.dp, end = 20.dp, bottom = 10.dp)
+                    .padding(top = 5.dp, start = 20.dp, end = 20.dp, bottom = 5.dp)
                     .clip(RoundedCornerShape(20.dp))
             )
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(top = 20.dp)
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp, start = 45.dp)
             ) {
                 Text(
-                    text = "Donate for a cause!",
+                    text = "Save Future...",
                     fontFamily = Poppins,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
-
             Card(
                 elevation = 5.dp,
                 backgroundColor = MaterialTheme.colors.CardColor,
                 shape = RoundedCornerShape(40.dp),
-                modifier = Modifier.fillMaxSize()
-                    .padding(start = 10.dp,end = 10.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 10.dp, end = 10.dp)
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -81,14 +86,29 @@ fun DonateUsScreen(
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 35.dp)
+                    ) {
+                        Text(
+                            text = "Donate for a cause!",
+                            fontFamily = Poppins,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(20.dp)
+                            .padding(horizontal = 20.dp)
                     ) {
                         Text(
                             text = LoremIpsum(70).values.joinToString(),
-                            fontFamily = Poppins
+                            fontFamily = Poppins,
+                            modifier = Modifier.padding(top = 20.dp)
                         )
                     }
                 }
@@ -102,7 +122,8 @@ fun DonateUsScreen(
             ) {
                 Button(
                     onClick = {
-                        val url = "upi://pay?pa=khushalsinhag@oksbi&pn=khushalsinha%20garud&aid=uGICAgIC1yv7NYw"
+                        val url =
+                            "upi://pay?pa=khushalsinhag@oksbi&pn=khushalsinha%20garud&aid=uGICAgIC1yv7NYw"
                         val intent = Intent("android.intent.action.VIEW", Uri.parse(url))
                         context.startActivity(intent)
                     },
@@ -124,15 +145,25 @@ fun DonateUsScreen(
                 }
             }
         }
+        Column(
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(end = 10.dp, top = 260.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.tree),
+                contentDescription = "Tree",
+                modifier = Modifier.size(100.dp)
+            )
+        }
+    }
     }
 }
 
 @Preview(showSystemUi = true)
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Dark"
-)
+
 @Composable
 fun DonatePrev() {
     DonateUsScreen(navController = null)
