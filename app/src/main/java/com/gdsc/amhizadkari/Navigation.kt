@@ -3,11 +3,8 @@ package com.gdsc.amhizadkari
 import AboutUsScreen
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContactPhone
@@ -39,7 +36,6 @@ import com.gdsc.amhizadkari.donate.DonateUsScreen
 import com.gdsc.amhizadkari.home.HomeScreen
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
-import com.gdsc.amhizadkari.ui.theme.linkBlue
 import com.gdsc.amhizadkari.ui.theme.rowColor
 import kotlinx.coroutines.launch
 
@@ -134,7 +130,6 @@ fun BottomNav(navController: NavController) {
                         startDestination = Routes.Home.route,
                         Modifier
                             .padding(innerPadding)
-                            .padding(top = 15.dp)
                     ) {
                         composable(Routes.Home.route) {
                             HomeScreen(navController)
@@ -157,170 +152,192 @@ fun DrawerContent(navController: NavController) {
     val context = LocalContext.current
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+
         Column(
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.verticalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxSize()
         ) {
-            Surface(
-                elevation = 10.dp
+            Column(
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
+                Surface(
+                    elevation = 10.dp
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .background(MaterialTheme.colors.CardColor)
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.drawertree),
+                            contentDescription = "Tree"
+                        )
+                        Text(
+                            text = "Amhi Zadkari",
+                            fontFamily = Poppins,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(600),
+                            color = Color.Black
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.padding(10.dp))
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Start,
                     modifier = Modifier
-                        .background(MaterialTheme.colors.CardColor)
                         .fillMaxWidth()
-                        .padding(50.dp)
+                        .clickable {
+                            navController.navigate(Routes.ContactUs.route)
+                        }
+                        .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
+
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ContactPhone,
+                        contentDescription = "Contact Us",
+                        modifier = Modifier
+                            .padding(end = 15.dp)
+                            .size(30.dp)
+                    )
+                    Text(
+                        text = "Contact Us",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(500),
+                        fontFamily = Poppins
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
+
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Event,
+                        contentDescription = "Events",
+                        modifier = Modifier
+                            .padding(end = 15.dp)
+                            .size(30.dp)
+                    )
+                    Text(
+                        text = "Events",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(500),
+                        fontFamily = Poppins
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
+
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.QuestionAnswer,
+                        contentDescription = "FAQ",
+                        modifier = Modifier
+                            .padding(end = 15.dp)
+                            .size(30.dp)
+                    )
+                    Text(
+                        text = "FAQ's",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(500),
+                        fontFamily = Poppins
+                    )
+                }
+
+
+                Spacer(modifier = Modifier.padding(30.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, bottom = 5.dp)
                 ) {
                     Text(
-                        text = "Amhi Zadkari",
+                        text = "Find us on",
+                        fontSize = 20.sp,
                         fontFamily = Poppins,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight(600),
-                        color = Color.Black
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, bottom = 10.dp)
+                        .clickable {
+                            val intent = Intent(
+                                "android.intent.action.VIEW",
+                                Uri.parse("https://www.instagram.com/amhi_zadkari/")
+                            )
+                            context.startActivity(intent)
+                        }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.instagram),
+                        contentDescription = "Instagram",
+                        modifier = Modifier
+                            .size(35.dp)
+                    )
+                    Text(
+                        text = "amhi_zadkari",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(500),
+                        fontFamily = Poppins,
+                        modifier = Modifier.padding(start = 20.dp)
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, bottom = 10.dp)
+                        .clickable {
+
+                        }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.facebook),
+                        contentDescription = "Facebook",
+                        modifier = Modifier
+                            .size(35.dp)
+                    )
+                    Text(
+                        text = "amhi_zadkari",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(500),
+                        fontFamily = Poppins,
+                        modifier = Modifier.padding(start = 20.dp)
                     )
                 }
             }
-
-            Spacer(modifier = Modifier.padding(10.dp))
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        navController.navigate(Routes.ContactUs.route)
-                    }
-                    .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
-
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ContactPhone,
-                    contentDescription = "Contact Us",
-                    modifier = Modifier
-                        .padding(end = 15.dp)
-                        .size(30.dp)
-                )
+            Row(modifier = Modifier.padding(top = 20.dp)) {
                 Text(
-                    text = "Contact Us",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight(500),
-                    fontFamily = Poppins
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
-
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Event,
-                    contentDescription = "Events",
-                    modifier = Modifier
-                        .padding(end = 15.dp)
-                        .size(30.dp)
-                )
-                Text(
-                    text = "Events",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight(500),
-                    fontFamily = Poppins
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
-
-            ) {
-                Icon(
-                    imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = "FAQ",
-                    modifier = Modifier
-                        .padding(end = 15.dp)
-                        .size(30.dp)
-                )
-                Text(
-                    text = "FAQ's",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight(500),
-                    fontFamily = Poppins
-                )
-            }
-
-
-            Spacer(modifier = Modifier.padding(30.dp))
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 25.dp)
-            ) {
-                Text(
-                    text = "Find us on",
-                    fontSize = 20.sp,
-                    fontFamily = Poppins,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 25.dp, bottom = 10.dp)
-                    .clickable {
-                        val intent = Intent(
-                            "android.intent.action.VIEW",
-                            Uri.parse("https://www.instagram.com/amhi_zadkari/")
-                        )
-                        context.startActivity(intent)
-                    }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.instagram),
-                    contentDescription = "Instagram",
-                    modifier = Modifier
-                        .size(35.dp)
-                        .padding(end = 5.dp)
-                )
-                Text(
-                    text = "amhi_zadkari",
-                    color = MaterialTheme.colors.linkBlue
-                )
-            }
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 25.dp, bottom = 10.dp)
-                    .clickable {
-
-                    }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.facebook),
-                    contentDescription = "Facebook",
-                    modifier = Modifier
-                        .size(35.dp)
-                        .padding(end = 5.dp)
-                )
-                Text(
-                    text = "amhi_zadkari",
-                    color = MaterialTheme.colors.linkBlue
+                    text = "Developed and designed by <> GDSC MMCOE",
+                    fontSize = 10.sp,
+                    modifier = Modifier.padding(10.dp)
                 )
             }
         }
