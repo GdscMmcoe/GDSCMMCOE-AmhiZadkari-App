@@ -1,41 +1,38 @@
 package com.gdsc.amhizadkari.util
 
-import android.os.Bundle
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import com.gdsc.amhizadkari.data.EventDatabase
 import com.gdsc.amhizadkari.data.EventItem
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.gdsc.amhizadkari.data.EventRepository
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.launch
+
+@Composable
+fun ReadData(){
+    val context = LocalContext.current
+    val database = FirebaseDatabase.getInstance().reference
 
 
-fun readData(){
+    val eventDao = EventDatabase.getInstance(context).eventDao()
+    val repository = EventRepository(eventDao)
 
-   val storage = FirebaseStorage.getInstance().getReference().child("ImageFolder")
-
-    var database = FirebaseDatabase.getInstance().reference
-    database.child("Omkar").setValue(EventItem(123,"Independence Day","01/12/1","Loremkamd askdna skadmkadms asmdk nasmnd aelkandasndmandwqkn dasn s sada da w df dsf e f ds f f"));
+    val coroutineScope = rememberCoroutineScope()
 
 
-    var getData = object : ValueEventListener {
-        override fun onCancelled(pO: DatabaseError) {
-            TODO("Not yet implemented")
-        }
+    database.child("Events").get().addOnSuccessListener {
+      for (i in it.children) {
+          val e = mutableListOf<String>()
+          for (j in i.children) {
+              e.add(j.value.toString())
+          }
+          coroutineScope.launch {
+              repository.deleteAllFutureEvents()
+              repository.addEvent(EventItem(eventContent = e[0], eventDate = e[1], eventId = e[2].toInt(), url = e[3], eventName = e[4], type = e[5]))
+          }
+      }
 
-        override fun onDataChange(pO: DataSnapshot) {
-            var sb = StringBuilder()
-            for(i in pO.children){
-                var title = i.child("title").  getValue()
-                var desc = i.child("desc").getValue()
-                sb.append("${i.key} $title $desc")
-                println(sb);
-                println(123);
-//                    val tv1: TextView = findViewById(R.id.textView)
-//                    tv1.setText()
-            }
-        }
     }
-    database.addValueEventListener(getData)
-    database.addListenerForSingleValueEvent(getData)
 
 }

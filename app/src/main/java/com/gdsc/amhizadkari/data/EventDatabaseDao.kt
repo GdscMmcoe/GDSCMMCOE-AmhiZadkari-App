@@ -1,26 +1,23 @@
 package com.gdsc.amhizadkari.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface EventDatabaseDao {
-    @Query("SELECT * FROM EventsTable")
-    fun getAll():LiveData<List<EventItem>>
+    @Query("SELECT * FROM EventsTable where type = 'past'")
+    fun getPastEvents():LiveData<List<EventItem>>
 
-    @Query("SELECT * FROM EventsTable where eventId = :id")
-    fun getEventById(id:Int):EventItem?
+    @Query("SELECT * FROM EventsTable where type = 'future'")
+    fun getFutureEvents():LiveData<List<EventItem>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: EventItem)
 
-    @Update
-    suspend fun update(item: EventItem)
+    @Query("DELETE FROM EventsTable where type = 'future'")
+    suspend fun deleteFuture()
 
-    @Delete
-    suspend fun delete(item: EventItem)
+    @Query("SELECT * FROM EventsTable where eventId = :id")
+    suspend fun getEventById(id:Int):EventItem?
+
 }

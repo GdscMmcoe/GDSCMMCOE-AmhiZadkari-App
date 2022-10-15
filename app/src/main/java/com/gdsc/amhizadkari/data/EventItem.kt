@@ -16,5 +16,11 @@ data class EventItem(
     val eventDate: String,
 
     @ColumnInfo(name = "event_content")
-    val eventContent: String
+    val eventContent: String,
+
+    @ColumnInfo(name = "type")
+    val type: String,
+
+    @ColumnInfo(name = "url")
+    val url: String
 )

@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +19,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ScaleFactor
 import androidx.compose.ui.layout.lerp
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,12 +44,11 @@ fun Prev() {
 fun HomeScreen(
     navController: NavController?,
     viewModel: HomeViewModel = viewModel()
-
 ) {
     val count = viewModel.imageList.size
     val imageList = viewModel.imageList
-    val pastEventList = viewModel.pastEventList
-    val upcomingEventList = viewModel.upcomingEventList
+    val pastEventList = viewModel.getPastEvents(LocalContext.current).observeAsState(listOf())
+    val upcomingEventList = viewModel.getFutureEvents(LocalContext.current).observeAsState(listOf())
     val pagerState = rememberPagerState()
 
     Box(modifier = Modifier.fillMaxSize()){
@@ -70,7 +71,7 @@ fun HomeScreen(
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .size(height = 250.dp, width = 420.dp)
-                        .padding(top = 5.dp,start = 5.dp, end = 5.dp, bottom = 10.dp)
+                        .padding(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 10.dp)
                         .graphicsLayer {
                             val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
                             lerp(
@@ -122,7 +123,7 @@ fun HomeScreen(
             LazyRow(
                 contentPadding = PaddingValues(bottom = 15.dp)
             ){
-                items(pastEventList) {item ->
+                items(pastEventList.value) { item ->
                     Spacer(modifier = Modifier.padding(10.dp))
                     EventCard(item){
                         viewModel.eventCardClick(item, navController)
@@ -150,7 +151,7 @@ fun HomeScreen(
                 )
             }
 
-            if(upcomingEventList.isEmpty()){
+            if(upcomingEventList.value.isEmpty()){
                 Text(
                     text = "No Events yet, stay tuned for more!",
                     fontSize = 20.sp,
@@ -162,7 +163,7 @@ fun HomeScreen(
                 LazyRow(
                     contentPadding = PaddingValues(bottom = 15.dp)
                 ) {
-                    items(upcomingEventList) { item ->
+                    items(upcomingEventList.value) { item ->
                         Spacer(modifier = Modifier.padding(10.dp))
                         EventCard(e = item){
                             viewModel.eventCardClick(item,navController)

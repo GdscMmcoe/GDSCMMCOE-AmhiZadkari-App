@@ -1,14 +1,19 @@
 package com.gdsc.amhizadkari.home
 
+import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.Routes
-import com.gdsc.amhizadkari.data.Event
+import com.gdsc.amhizadkari.data.EventDatabase
+import com.gdsc.amhizadkari.data.EventItem
+import com.gdsc.amhizadkari.data.EventRepository
 
 class HomeViewModel :ViewModel(){
+
+
     val imageList: List<Int> = mutableStateListOf(
         R.drawable.image1,
         R.drawable.image2,
@@ -18,24 +23,20 @@ class HomeViewModel :ViewModel(){
         R.drawable.image6,
     )
 
-    val pastEventList: List<Event> = mutableStateListOf(
-        Event(1,"Independence day","25/20/2022",LoremIpsum(70).values.joinToString()),
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-    )
-
-    val upcomingEventList: List<Event> = mutableStateListOf(
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-        Event(1,"Independence day","25/20/2022",null),
-    )
-
-
-    fun eventCardClick(item: Event, navController: NavController?) {
-        navController?.navigate(Routes.EventScreen.route + "/${item.eventName}/${item.eventContent}")
+    fun eventCardClick(item: EventItem, navController: NavController?) {
+        navController?.navigate(Routes.EventScreen.route + "/${item.eventId}")
     }
+
+    fun getPastEvents(context: Context): LiveData<List<EventItem>> {
+        val eventDao = EventDatabase.getInstance(context).eventDao()
+        val repository = EventRepository(eventDao)
+        return repository.getPastData
+    }
+
+    fun getFutureEvents(context: Context): LiveData<List<EventItem>> {
+        val eventDao = EventDatabase.getInstance(context).eventDao()
+        val repository = EventRepository(eventDao)
+         return repository.getFutureData
+    }
+
 }

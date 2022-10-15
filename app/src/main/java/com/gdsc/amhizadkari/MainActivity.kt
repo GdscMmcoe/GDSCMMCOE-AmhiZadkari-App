@@ -19,6 +19,7 @@ import com.gdsc.amhizadkari.event.EventScreen
 import com.gdsc.amhizadkari.splash.SplashScreen
 import com.gdsc.amhizadkari.ui.theme.AppTheme
 import com.gdsc.amhizadkari.ui.theme.CardColor
+import com.gdsc.amhizadkari.util.ReadData
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlin.system.exitProcess
 
@@ -27,7 +28,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
+                ReadData()
                 Navigation()
+
                 val green = MaterialTheme.colors.CardColor
                 val systemUiController = rememberSystemUiController()
                 DisposableEffect(key1 = systemUiController){
@@ -74,16 +77,14 @@ fun Navigation() {
             ContactUsScreen(navController)
         }
         composable(
-            Routes.EventScreen.route + "/{event_name}/{event_content}",
+            Routes.EventScreen.route + "/{event_id}",
             arguments = listOf(
-                navArgument("event_name"){ type = NavType.StringType },
-                navArgument("event_content"){ type = NavType.StringType }
+                navArgument("event_id"){ type = NavType.IntType }
             )
         ){
             EventScreen(
-                title = it.arguments?.getString("event_name") ?: "",
-                content = it.arguments?.getString("event_content") ?: "",
-                navController
+                navController = navController,
+                id = it.arguments?.getInt("event_id")?:0
             )
         }
     }

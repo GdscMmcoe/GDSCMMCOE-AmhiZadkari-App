@@ -3,17 +3,17 @@ package com.gdsc.amhizadkari.data
 import androidx.lifecycle.LiveData
 
 class EventRepository(private val eventDatabaseDao:EventDatabaseDao) {
-    val getAllData: LiveData<List<EventItem>> = eventDatabaseDao.getAll()
+
+    val getPastData: LiveData<List<EventItem>> = eventDatabaseDao.getPastEvents()
+
+    val getFutureData: LiveData<List<EventItem>> = eventDatabaseDao.getFutureEvents()
 
     suspend fun addEvent(eventItem: EventItem){
         eventDatabaseDao.insert(eventItem)
     }
+    suspend fun getEventById(id:Int) = eventDatabaseDao.getEventById(id)
 
-    suspend fun updateEvent(eventItem: EventItem){
-        eventDatabaseDao.update(eventItem)
-    }
-
-    suspend fun deleteEvent(eventItem: EventItem){
-        eventDatabaseDao.delete(eventItem)
+    suspend fun deleteAllFutureEvents(){
+        eventDatabaseDao.deleteFuture()
     }
 }
