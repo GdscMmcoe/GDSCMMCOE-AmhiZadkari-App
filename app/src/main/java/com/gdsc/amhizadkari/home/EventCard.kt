@@ -17,14 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gdsc.amhizadkari.data.Event
+import com.gdsc.amhizadkari.data.EventItem
 import com.gdsc.amhizadkari.ui.theme.AppTheme
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 
 
 @Composable
-fun EventCard(e: Event,onClick: ()-> Unit) {
+fun EventCard(e: EventItem,onClick: ()-> Unit) {
     Surface(
         shape = RoundedCornerShape(20.dp),
         elevation = 5.dp,
@@ -70,7 +70,7 @@ fun EventCard(e: Event,onClick: ()-> Unit) {
                     .padding(3.dp)
             ) {
                 Text(
-                    text = e.date,
+                    text = e.eventDate,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                 )
@@ -89,7 +89,7 @@ fun EventCard(e: Event,onClick: ()-> Unit) {
 fun PreviewMessageCard() {
     AppTheme {
         Surface {
-            EventCard(Event(1,"Independence Day Special", "10/10/2022",null)){}
+            EventCard(EventItem(1,"Independence Day Special", "10/10/2022","          ", type = "past",url = "")){}
         }
     }
 }
