@@ -19,7 +19,7 @@ abstract class EventDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         EventDatabase::class.java,
-                        "todo_list_database"
+                        "events_database"
                     ).fallbackToDestructiveMigration()
                         .build()
                     INSTANCE = instance

@@ -36,7 +36,7 @@ class EventDatabaseTest{
     @Test
     @Throws(Exception::class)
     fun insertAndGetTest() = runBlocking {
-        val eventItem = EventItem(1,"Independence Day Special","10/10/2022",LoremIpsum(20).values.joinToString())
+        val eventItem = EventItem(1,"Independence Day Special","10/10/2022",LoremIpsum(20).values.joinToString(),type = "past",url = "")
         eventDatabaseDao.insert(eventItem)
         val item = eventDatabaseDao.getEventById(1)
         assertEquals(item?.eventId,1)

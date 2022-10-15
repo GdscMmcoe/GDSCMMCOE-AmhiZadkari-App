@@ -55,7 +55,8 @@ fun ContactUsScreen(navController: NavController?) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
-                    modifier = Modifier.padding(start = 5.dp,end = 10.dp)
+                    modifier = Modifier.padding(start = 5.dp,end = 10.dp),
+                    tint = MaterialTheme.colors.onBackground
                 )
             }
             Text(
@@ -128,11 +129,4 @@ fun ListItem(name: String) {
         }
     }
 
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun ContactPrev() {
-    ContactUsScreen(navController = null)
 }

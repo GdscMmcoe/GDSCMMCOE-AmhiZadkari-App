@@ -13,13 +13,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 
 @Composable
-fun AboutUsScreen(navController: NavController?) {
+fun AboutUsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,13 +76,5 @@ fun AboutUsScreen(navController: NavController?) {
             }
         }
     }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun abtPrev(){
-        Spacer(modifier = Modifier.padding(5.dp))
-        AboutUsScreen(navController = null)
 
 }

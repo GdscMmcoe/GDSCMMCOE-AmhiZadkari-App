@@ -78,18 +78,3 @@ fun EventCard(e: EventItem,onClick: ()-> Unit) {
         }
     }
 }
-
-@Preview(name = "Light Mode")
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode"
-)
-@Composable
-fun PreviewMessageCard() {
-    AppTheme {
-        Surface {
-            EventCard(EventItem(1,"Independence Day Special", "10/10/2022","          ", type = "past",url = "")){}
-        }
-    }
-}
