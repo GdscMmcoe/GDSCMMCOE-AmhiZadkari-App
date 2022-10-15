@@ -22,7 +22,6 @@ import androidx.compose.ui.layout.lerp
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,12 +31,6 @@ import com.gdsc.amhizadkari.ui.theme.rowColor
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
 
-
-@Preview(showSystemUi = true)
-@Composable
-fun Prev() {
-    HomeScreen(null)
-}
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable

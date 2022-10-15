@@ -9,18 +9,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.gdsc.amhizadkari.ui.theme.Poppins
-import kotlinx.coroutines.delay
+import androidx.navigation.compose.rememberNavController
+import coil.ImageLoader
+import coil.compose.rememberAsyncImagePainter
+import coil.decode.ImageDecoderDecoder
+import coil.request.ImageRequest
+import coil.size.Size
 import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.Routes
+import com.gdsc.amhizadkari.ui.theme.Poppins
+import kotlinx.coroutines.delay
+
 
 @Composable
 fun SplashScreen(navController: NavController) {
+
+    val context = LocalContext.current
+
+    val imageLoader = ImageLoader.Builder(context).components {
+        add(ImageDecoderDecoder.Factory())
+    }.build()
+
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.start_page),
@@ -34,7 +51,7 @@ fun SplashScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
-            Spacer(modifier = Modifier.padding(180.dp))
+            Spacer(modifier = Modifier.padding(230.dp))
 
             Text(
                 text = "Amhi Zadkari",
@@ -50,6 +67,18 @@ fun SplashScreen(navController: NavController) {
                 fontWeight = FontWeight.Bold,
                 color = Color(0xff44911B)
             )
+
+            Image(
+                painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(context).data(data = R.drawable.tree_loading).apply(block = {
+                        size(Size.ORIGINAL)
+                    }).build(),
+                    imageLoader = imageLoader
+                ),
+                contentDescription =  "Gif",
+                modifier = Modifier.size(120.dp)
+                    .padding(top = 20.dp)
+            )
         }
     }
     LaunchedEffect(key1 = true) {
@@ -57,4 +86,3 @@ fun SplashScreen(navController: NavController) {
         navController.navigate(Routes.BottomNav.route)
     }
 }
-

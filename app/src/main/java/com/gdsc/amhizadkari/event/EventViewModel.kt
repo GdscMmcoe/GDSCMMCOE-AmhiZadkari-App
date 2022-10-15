@@ -17,5 +17,4 @@ class EventViewModel: ViewModel() {
             details = repository.getEventById(id)
         }
     }
-
 }

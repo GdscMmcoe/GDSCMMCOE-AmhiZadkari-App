@@ -147,10 +147,10 @@ fun BottomNav(navController: NavController) {
                             HomeScreen(navController)
                         }
                         composable(Routes.Donate.route) {
-                            DonateUsScreen(navController)
+                            DonateUsScreen()
                         }
                         composable(Routes.AboutUs.route) {
-                            AboutUsScreen(navController)
+                            AboutUsScreen()
                         }
                     }
                 }
@@ -232,8 +232,8 @@ fun DrawerContent(navController: NavController) {
                     horizontalArrangement = Arrangement.Start,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable {  }
                         .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
-
                 ) {
                     Icon(
                         imageVector = Icons.Default.Event,
@@ -254,8 +254,8 @@ fun DrawerContent(navController: NavController) {
                     horizontalArrangement = Arrangement.Start,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable {  }
                         .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
-
                 ) {
                     Icon(
                         imageVector = Icons.Default.QuestionAnswer,
@@ -364,10 +364,4 @@ fun DrawerContent(navController: NavController) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun navPrev() {
-    Navigation()
 }

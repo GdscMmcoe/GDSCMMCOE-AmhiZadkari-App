@@ -1,6 +1,7 @@
 package com.gdsc.amhizadkari.event
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,6 +42,7 @@ fun EventScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colors.background)
             .verticalScroll(rememberScrollState())
     ) {
         Row(
@@ -54,7 +56,8 @@ fun EventScreen(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
-                    modifier = Modifier.padding(start = 5.dp,end = 10.dp)
+                    modifier = Modifier.padding(start = 5.dp,end = 10.dp),
+                    tint = MaterialTheme.colors.onBackground
                 )
             }
             Text(
