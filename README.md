@@ -10,7 +10,7 @@ The AmhiZadkari staff can use this app to raise awareness of tree planting and t
 
 ### Technology used
 This app makes use of the cutting-edge Android toolkit Jetpack Compose, which has simplified UI design with strong tools while requiring less overall code. The following are some of the concepts and tools utilized to create this app:
-1. **Material Theme**:Material is a flexible set of rules, elements, and tools that promotes the best principles of user interface design. Jetpack Compose's Material Theme is incredibly user-friendly and offers the best styling and theming possibilities.
+1. **Material Theme**: Material is a flexible set of rules, elements, and tools that promotes the best principles of user interface design. Jetpack Compose's Material Theme is incredibly user-friendly and offers the best styling and theming possibilities.
 2. **Reusable composables**: The core compose concept of Composable gives us the flexibility to create any UI element and reuse it as needed, greatly minimizing the need for repetitive code.
 3. **Jetpack Compose Scaffold**: The Scaffold is a layout that implements the fundamental material design layout framework, and it is just one of many sophisticated tools available through the Compose library. enabling the addition of features such as a TopBar, BottomBar with a Bottom navigation, FAB, or a Drawer.
 4. **Compose navigation library**: The jetpack navigation library provides an elegant and easy way to navigate between composables.
