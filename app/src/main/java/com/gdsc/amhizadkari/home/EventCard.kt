@@ -1,6 +1,5 @@
 package com.gdsc.amhizadkari.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,11 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gdsc.amhizadkari.data.EventItem
-import com.gdsc.amhizadkari.ui.theme.AppTheme
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 

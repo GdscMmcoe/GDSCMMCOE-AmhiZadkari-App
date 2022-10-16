@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
@@ -61,7 +62,7 @@ fun DonateUsScreen() {
                         .padding(top = 10.dp, start = 45.dp)
                 ) {
                     Text(
-                        text = "Save Future...",
+                        text = stringResource(R.string.save_future_text),
                         fontFamily = Poppins,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold
@@ -88,7 +89,7 @@ fun DonateUsScreen() {
                                 .padding(top = 10.dp, start = 35.dp)
                         ) {
                             Text(
-                                text = "Donate for a cause!",
+                                text = stringResource(R.string.donate_text),
                                 fontFamily = Poppins,
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold
@@ -134,7 +135,7 @@ fun DonateUsScreen() {
                         )
                     ) {
                         Text(
-                            text = "Donate with UPI",
+                            text = stringResource(R.string.donate_with_upi),
                             fontSize = 20.sp,
                             fontFamily = Poppins
                         )

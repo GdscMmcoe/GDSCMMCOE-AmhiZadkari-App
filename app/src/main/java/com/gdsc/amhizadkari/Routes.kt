@@ -14,4 +14,5 @@ sealed class Routes(val route: String, val icon: ImageVector?,val label:String?)
     object SplashScreen: Routes("splash",null,null)
     object BottomNav: Routes("bottomNav",null,null)
     object EventScreen: Routes("eventScreen",null,null)
+    object FaqScreen: Routes("faqScreen",null,null)
 }

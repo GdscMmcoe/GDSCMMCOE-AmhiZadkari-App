@@ -11,12 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.ImageDecoderDecoder
@@ -54,14 +53,14 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.padding(230.dp))
 
             Text(
-                text = "Amhi Zadkari",
+                text = stringResource(id = R.string.app_name),
                 fontSize = 40.sp,
                 fontFamily = Poppins,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
             )
             Text(
-                text = "Government Registered NGO",
+                text = stringResource(R.string.gov_reg_ngo),
                 fontSize = 14.sp,
                 fontFamily = Poppins,
                 fontWeight = FontWeight.Bold,
@@ -76,7 +75,8 @@ fun SplashScreen(navController: NavController) {
                     imageLoader = imageLoader
                 ),
                 contentDescription =  "Gif",
-                modifier = Modifier.size(120.dp)
+                modifier = Modifier
+                    .size(120.dp)
                     .padding(top = 20.dp)
             )
         }

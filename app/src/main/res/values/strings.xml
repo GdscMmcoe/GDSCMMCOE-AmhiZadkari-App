@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Amhi Zadkari</string>
+    <string name="about_us">A government-approved NGO, AmhiZadkari focuses mostly on tree plantations and all associated responsibilities.\nThe main concept of this organisation is to prevent the unnecessary expense of your birthday celebrations by coming together and giving Mother Nature a birthday present of one tree.Let\'s all resolve to planting at least one tree per year as a little step toward the larger goal of protecting the environment.Not merely this. This is simply one part of how we work. We also engage in several public activities, the primary goal of which is to raise public awareness of our work, its effects, and consequences, and eventually connect this incredible revolution with an increasing number of individuals.</string>
+    <string name="q1">What is AmhiZadkari?</string>
+    <string name="a1">The AmhiZadkari community is made up of like-minded, nature-loving folks who have teamed together to work towards the plantation revolution. The organisation is entirely run by volunteers, and all of the participants are extremely focused and self-motivated, ensuring that passion never dries up, as our plants never dry up 😉.</string>
+    <string name="q2">How to join AmhiZadkari?</string>
+    <string name="a2">Well, joining us is not at all difficult… Simply send us a message through one of our main contacts, ideally by WhatsApp or phone call; do not DM us on Instagram for a faster response. Once we establish a connection via a communication channel, our volunteers will walk you through the next straightforward phase.</string>
+    <string name="q3">What work does AmhiZadkari do?</string>
+    <string name="a3"> AmhiZadkari is a government-registered NGO that focuses mostly on tree conservation and plantation. Our main goal is to locate uninhabited areas where large, traditional, jungle-like trees can grow in order to compensate for the natural environment\'s ongoing loss of forest cover. At this stage, we look at plantations on numerous locations around Maharashtra. We also offer a variety of tree-related events, such as gatherings to collect seeds, spread awareness, and more. To get a sneak peak at our activities, use the social media links to see our instagram account.</string>
+    <string name="q4">How can you Contribute to AmhiZadkari? </string>
+    <string name="a4"> By being involved in the revolution of the tree plantation, you can support this worthy cause. The obvious method is that. Additionally, you can submit donations using any standard form. However, we urge participants to come on-site and volunteer a hand or two at the event instead of just making monetary donations ✨✨\nYou may help by providing information about potential plantation locations and by letting us know if you have any ideas that we can put into action together. We are always there to assist you.</string>
+    <string name="about_us_text">About us</string>
+    <string name="contact_us_text">Contact Us</string>
+    <string name="save_future_text">Save Future…</string>
+    <string name="donate_text">Donate for a cause!</string>
+    <string name="donate_with_upi">Donate with UPI</string>
+    <string name="past_event_text">Past Events</string>
+    <string name="upcoming_text">Upcoming Events</string>
+    <string name="no_more_events">No Events yet, stay tuned for more!</string>
+    <string name="gov_reg_ngo">Government Registered NGO</string>
+    <string name="back_exit">Press back again to exit</string>
+    <string name="find_us">Find us on</string>
+    <string name="design_dev_by"><![CDATA[Developed and designed by <> GDSC MMCOE]]></string>
 </resources>

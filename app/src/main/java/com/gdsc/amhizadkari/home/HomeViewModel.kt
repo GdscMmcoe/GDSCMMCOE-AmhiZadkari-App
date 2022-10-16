@@ -23,8 +23,8 @@ class HomeViewModel :ViewModel(){
         R.drawable.image6,
     )
 
-    fun eventCardClick(item: EventItem, navController: NavController?) {
-        navController?.navigate(Routes.EventScreen.route + "/${item.eventId}")
+    fun eventCardClick(item: EventItem, navController: NavController) {
+        navController.navigate(Routes.EventScreen.route + "/${item.eventId}")
     }
 
     fun getPastEvents(context: Context): LiveData<List<EventItem>> {

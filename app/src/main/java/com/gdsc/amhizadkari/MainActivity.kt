@@ -1,5 +1,6 @@
 package com.gdsc.amhizadkari
 
+import FaqScreen
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
             BackHandler {
                 val time = System.currentTimeMillis()
                 if(time - backPressTime > 3000){
-                    Toast.makeText(context,"Press back again to exit",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,getString(R.string.back_exit),Toast.LENGTH_SHORT).show()
                     backPressTime = time
                 }
                 else {
@@ -76,6 +77,12 @@ fun Navigation() {
         composable(Routes.ContactUs.route){
             ContactUsScreen(navController)
         }
+
+        composable(Routes.FaqScreen.route){
+            FaqScreen(navController)
+        }
+
+
         composable(
             Routes.EventScreen.route + "/{event_id}",
             arguments = listOf(

@@ -30,7 +30,7 @@ import com.gdsc.amhizadkari.ui.theme.Poppins
 @Composable
 fun EventScreen(
     id: Int,
-    navController: NavController?,
+    navController: NavController,
     viewModel: EventViewModel = viewModel()
 ) {
     viewModel.getDetails(LocalContext.current,id)
@@ -46,13 +46,13 @@ fun EventScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Start,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp)
         ) {
-            IconButton(onClick = { navController?.popBackStack() }) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
@@ -60,17 +60,30 @@ fun EventScreen(
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-            Text(
-                text = data?.eventName?:"",
-                fontFamily = Poppins,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
-            )
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = data?.eventName ?: "",
+                    fontFamily = Poppins,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp
+                )
+                Text(
+                    text = data?.eventDate?:"",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = Poppins
+                )
+            }
         }
 
         AsyncImage(
-            model = data?.url?:"",
+            model = data?.url,
             placeholder = painterResource(id = R.drawable.placeholder),
+            error = painterResource(id = R.drawable.placeholder),
             contentDescription = "Image",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
@@ -78,8 +91,6 @@ fun EventScreen(
                 .padding(top = 20.dp, start = 5.dp, end = 5.dp, bottom = 10.dp)
                 .clip(RoundedCornerShape(20.dp))
         )
-
-
         Card(
             elevation = 10.dp,
             backgroundColor = MaterialTheme.colors.CardColor,
@@ -113,6 +124,6 @@ fun EventScreen(
 
 
     BackHandler {
-        navController?.popBackStack()
+        navController.popBackStack()
     }
 }

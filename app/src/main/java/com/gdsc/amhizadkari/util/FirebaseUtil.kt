@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch
 
 @Composable
-fun ReadData(){
+fun ReadData() {
     val context = LocalContext.current
     val database = FirebaseDatabase.getInstance().reference
 
@@ -20,19 +20,35 @@ fun ReadData(){
 
     val coroutineScope = rememberCoroutineScope()
 
+    try {
+        database.child("Events").get().addOnSuccessListener {
+            for (i in it.children) {
+                val e = mutableListOf<String>()
+                for (j in i.children) {
+                    e.add(j.value.toString())
+                }
+                coroutineScope.launch {
+                    try {
+                        repository.deleteAll()
+                        repository.addEvent(
+                            EventItem(
+                                eventContent = e[0],
+                                eventDate = e[1],
+                                eventId = e[2].toInt(),
+                                url = e[3],
+                                eventName = e[4],
+                                type = e[5]
+                            )
+                        )
+                    }
+                    catch (e:Exception){
+                        e.printStackTrace()
+                    }
+                }
+            }
 
-    database.child("Events").get().addOnSuccessListener {
-      for (i in it.children) {
-          val e = mutableListOf<String>()
-          for (j in i.children) {
-              e.add(j.value.toString())
-          }
-          coroutineScope.launch {
-              repository.deleteAllFutureEvents()
-              repository.addEvent(EventItem(eventContent = e[0], eventDate = e[1], eventId = e[2].toInt(), url = e[3], eventName = e[4], type = e[5]))
-          }
-      }
-
+        }
+    } catch (e: java.lang.Exception) {
+        e.printStackTrace()
     }
-
 }

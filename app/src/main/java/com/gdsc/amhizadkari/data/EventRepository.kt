@@ -13,7 +13,7 @@ class EventRepository(private val eventDatabaseDao:EventDatabaseDao) {
     }
     suspend fun getEventById(id:Int) = eventDatabaseDao.getEventById(id)
 
-    suspend fun deleteAllFutureEvents(){
-        eventDatabaseDao.deleteFuture()
+    suspend fun deleteAll(){
+        eventDatabaseDao.deleteAll()
     }
 }

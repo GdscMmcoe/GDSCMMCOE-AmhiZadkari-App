@@ -14,8 +14,8 @@ interface EventDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: EventItem)
 
-    @Query("DELETE FROM EventsTable where type = 'future'")
-    suspend fun deleteFuture()
+    @Query("DELETE FROM EventsTable")
+    suspend fun deleteAll()
 
     @Query("SELECT * FROM EventsTable where eventId = :id")
     suspend fun getEventById(id:Int):EventItem?

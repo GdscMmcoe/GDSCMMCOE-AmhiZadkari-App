@@ -20,11 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 
@@ -33,9 +34,9 @@ private val contactList =
     mutableListOf("Kaushal Singh Garud", "Pratima Garud", "Ketki", "Suraj Kakade", "Prateek")
 
 @Composable
-fun ContactUsScreen(navController: NavController?) {
+fun ContactUsScreen(navController: NavController) {
     BackHandler {
-        navController?.popBackStack()
+        navController.popBackStack()
     }
     Box(
         modifier = Modifier
@@ -51,7 +52,7 @@ fun ContactUsScreen(navController: NavController?) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            IconButton(onClick = { navController?.popBackStack() }) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
@@ -60,7 +61,7 @@ fun ContactUsScreen(navController: NavController?) {
                 )
             }
             Text(
-                text = "Contact Us",
+                text = stringResource(R.string.contact_us_text),
                 fontFamily = Poppins,
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,

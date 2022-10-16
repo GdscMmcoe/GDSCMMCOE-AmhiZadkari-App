@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "EventsTable")
 data class EventItem(
-    @PrimaryKey()
-    var eventId: Int = 0,
+    @PrimaryKey
+    var eventId: Int,
 
     @ColumnInfo(name = "event_name")
     val eventName: String,

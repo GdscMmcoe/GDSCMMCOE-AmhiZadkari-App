@@ -3,14 +3,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gdsc.amhizadkari.R
@@ -30,7 +31,7 @@ fun AboutUsScreen() {
                     .fillMaxSize()
             ) {
                 Text(
-                    "About us",
+                    stringResource(R.string.about_us_text),
                     fontSize = 40.sp,
                     fontFamily = Poppins,
                     fontWeight = FontWeight.Medium,
@@ -52,7 +53,7 @@ fun AboutUsScreen() {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = LoremIpsum(40).values.joinToString(),
+                                text = stringResource(id = R.string.about_us),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Normal,
                                 fontFamily = Poppins

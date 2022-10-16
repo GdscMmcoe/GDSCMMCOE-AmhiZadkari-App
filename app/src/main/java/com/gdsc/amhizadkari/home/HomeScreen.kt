@@ -21,11 +21,13 @@ import androidx.compose.ui.layout.ScaleFactor
 import androidx.compose.ui.layout.lerp
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.gdsc.amhizadkari.R
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.ui.theme.rowColor
 import com.google.accompanist.pager.*
@@ -35,7 +37,7 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(
-    navController: NavController?,
+    navController: NavController,
     viewModel: HomeViewModel = viewModel()
 ) {
     val count = viewModel.imageList.size
@@ -103,7 +105,7 @@ fun HomeScreen(
                     .background(MaterialTheme.colors.rowColor)
             ) {
                 Text(
-                    text = "Past Events",
+                    text = stringResource(R.string.past_event_text),
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
                     fontFamily = Poppins,
@@ -136,7 +138,7 @@ fun HomeScreen(
                     .background(MaterialTheme.colors.rowColor)
             ) {
                 Text(
-                    text = "Upcoming Events",
+                    text = stringResource(R.string.upcoming_text),
                     fontSize = 16.sp,
                     fontWeight = FontWeight(500),
                     fontFamily = Poppins,
@@ -146,7 +148,7 @@ fun HomeScreen(
 
             if(upcomingEventList.value.isEmpty()){
                 Text(
-                    text = "No Events yet, stay tuned for more!",
+                    text = stringResource(R.string.no_more_events),
                     fontSize = 20.sp,
                     fontFamily = Poppins,
                     modifier = Modifier.padding(start = 30.dp, end = 30.dp, bottom = 30.dp)

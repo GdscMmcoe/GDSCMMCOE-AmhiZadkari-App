@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContactPhone
-import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.runtime.Composable
@@ -23,8 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -79,7 +78,7 @@ fun BottomNav(navController: NavController) {
                                     modifier = Modifier.size(25.dp)
                                 )
                                 Text(
-                                    text = "Amhi Zadkari",
+                                    text = stringResource(id = R.string.app_name),
                                     fontSize = 26.sp,
                                     fontFamily = Poppins,
                                     fontWeight = FontWeight(600),
@@ -191,7 +190,7 @@ fun DrawerContent(navController: NavController) {
                             contentDescription = "Tree"
                         )
                         Text(
-                            text = "Amhi Zadkari",
+                            text = stringResource(id = R.string.app_name),
                             fontFamily = Poppins,
                             fontSize = 24.sp,
                             fontWeight = FontWeight(600),
@@ -221,40 +220,19 @@ fun DrawerContent(navController: NavController) {
                             .size(30.dp)
                     )
                     Text(
-                        text = "Contact Us",
+                        text = stringResource(id = R.string.contact_us_text),
                         fontSize = 18.sp,
                         fontWeight = FontWeight(500),
                         fontFamily = Poppins
                     )
                 }
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable {  }
-                        .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Event,
-                        contentDescription = "Events",
-                        modifier = Modifier
-                            .padding(end = 15.dp)
-                            .size(30.dp)
-                    )
-                    Text(
-                        text = "Events",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight(500),
-                        fontFamily = Poppins
-                    )
-                }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {  }
+                        .clickable { navController.navigate(Routes.FaqScreen.route) }
                         .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
                 ) {
                     Icon(
@@ -283,7 +261,7 @@ fun DrawerContent(navController: NavController) {
                         .padding(start = 25.dp, bottom = 5.dp)
                 ) {
                     Text(
-                        text = "Find us on",
+                        text = stringResource(R.string.find_us),
                         fontSize = 20.sp,
                         fontFamily = Poppins,
                         fontWeight = FontWeight.Medium
@@ -357,7 +335,7 @@ fun DrawerContent(navController: NavController) {
                     }
             ) {
                 Text(
-                    text = "Developed and designed by <> GDSC MMCOE",
+                    text = stringResource(R.string.design_dev_by),
                     fontSize = 10.sp,
                     modifier = Modifier.padding(10.dp)
                 )
