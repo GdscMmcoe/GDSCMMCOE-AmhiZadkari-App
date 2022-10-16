@@ -8,6 +8,11 @@ People who share the same values and a love of nature make up the AmhiZadkari gr
 ### Proposed Solution:
 The AmhiZadkari staff can use this app to raise awareness of tree planting and the environment. The app gives people a way to find out more about AmhiZadkari and invites them to get involved.
 
+### App Screenshots
+|<img src="https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/blob/master/images/image1.jpg" alt="drawing" width="250"/> | <img src="https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/blob/master/images/image2.jpg" alt="drawing" width="250"/> | <img src="https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/blob/master/images/image3.jpg" alt="drawing" width="250"/> | 
+|:---:|:---:|:---:|
+|<img src="https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/blob/master/images/image4.jpg" alt="drawing" width="250"/>|<img src="https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/blob/master/images/image5.jpg" alt="drawing" width="250"/>|<img src="https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/blob/master/images/image6.jpg" alt="drawing" width="250"/>|
+
 ### Technology used
 This app makes use of the cutting-edge Android toolkit Jetpack Compose, which has simplified UI design with strong tools while requiring less overall code. The following are some of the concepts and tools utilized to create this app:
 1. **Material Theme**: Material is a flexible set of rules, elements, and tools that promotes the best principles of user interface design. Jetpack Compose's Material Theme is incredibly user-friendly and offers the best styling and theming possibilities.
