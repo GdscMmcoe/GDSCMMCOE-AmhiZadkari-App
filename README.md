@@ -32,4 +32,4 @@ This app makes use of the cutting-edge Android toolkit Jetpack Compose, which ha
 https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/releases/download/v1.0.0/app-release.apk
 
 ### Future Scope
-The future scope for this app would be to not only serve a single organization but to allow all organizations that work for a great cause to collaborate with each other and create a protal for people to volunteer.
+The future potential of this software would be to collaborate with other organisations working for worthy causes to build a volunteer gateway, rather than just serving one particular group.
