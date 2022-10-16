@@ -88,7 +88,7 @@ fun DonateUsScreen() {
                                 .padding(top = 10.dp, start = 35.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.donate_text),
+                                text = stringResource(R.string.donate_us_text),
                                 fontFamily = Poppins,
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold
