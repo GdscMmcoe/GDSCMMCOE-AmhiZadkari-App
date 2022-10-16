@@ -28,3 +28,8 @@ This app makes use of the cutting-edge Android toolkit Jetpack Compose, which ha
 6. **Room**: The Room persistence library provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite. This eliminates the need for boilerplate code and lets us create SQLite tables.
 7. **Coil**: Coil is a fast, lightweight, and incredibly user-friendly image loading library that makes it simpler to load images from the internet. Memory and disc caching are just a couple of the improvements carried out by Coil.
 8. **Firebase**: Using Google firebase we make an app that is easy to update over the internet and make dynamic apps. To store and serve data, Firebase offers us its easy to use storage and a database.
+### App link
+https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/releases/download/v1.0.0/app-release.apk
+
+### Future Scope
+The future scope for this app would be to not only serve a single organization but to allow all organizations that work for a great cause to collaborate with each other and create a protal for people to volunteer.
