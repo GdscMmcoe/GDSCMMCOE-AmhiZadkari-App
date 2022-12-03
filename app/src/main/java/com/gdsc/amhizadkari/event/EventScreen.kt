@@ -10,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +36,7 @@ fun EventScreen(
 ) {
     viewModel.getDetails(LocalContext.current,id)
 
-    val data = remember{ viewModel.details }
+    val data = viewModel.details
 
 
     Scaffold(
