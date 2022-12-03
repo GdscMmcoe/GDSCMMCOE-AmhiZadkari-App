@@ -30,8 +30,13 @@ import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 
 
-private val contactList =
-    mutableListOf("Kaushal Singh Garud", "Pratima Garud", "Ketki", "Suraj Kakade", "Prateek")
+private val contacts = mutableListOf(
+    ContactItem("Kaushal Singh Garud", "9529968388"),
+    ContactItem("Pratima Garud","9665859394"),
+    ContactItem("Ketki", "9112686229"),
+    ContactItem("Suraj Kakade","9767257776"),
+    ContactItem("Prateek","860013940")
+)
 
 @Composable
 fun ContactUsScreen(navController: NavController) {
@@ -70,8 +75,8 @@ fun ContactUsScreen(navController: NavController) {
         }
         LazyColumn(modifier = Modifier.padding(vertical = 10.dp)) {
 
-            items(contactList) { name ->
-                ListItem(name = name)
+            items(contacts) { item ->
+                ListItem(item.name,item.phone)
             }
 
         }
@@ -80,7 +85,7 @@ fun ContactUsScreen(navController: NavController) {
 }
 
 @Composable
-fun ListItem(name: String) {
+fun ListItem(name: String, pno: String) {
     val context = LocalContext.current
 
     Surface(
@@ -89,20 +94,8 @@ fun ListItem(name: String) {
         modifier = Modifier
             .padding(vertical = 5.dp, horizontal = 10.dp)
             .clickable {
-                var phoneNo = ""
-                if (name == "Kaushal Singh Garud")
-                    phoneNo = "9529968388"
-                if (name == "Pratima Garud")
-                    phoneNo = "9665859394"
-                if (name == "Ketki")
-                    phoneNo = "9112686229"
-                if (name == "Suraj Kakade")
-                    phoneNo = "9767257776"
-                if (name == "Prateek")
-                    phoneNo = "860013940"
-                val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNo, null))
+                val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", pno, null))
                 context.startActivity(intent)
-
             }
     ) {
 

@@ -6,14 +6,14 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.gdsc.amhizadkari.contactus.ContactUsScreen
 import com.gdsc.amhizadkari.event.EventScreen
@@ -21,6 +21,9 @@ import com.gdsc.amhizadkari.splash.SplashScreen
 import com.gdsc.amhizadkari.ui.theme.AppTheme
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.util.ReadData
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlin.system.exitProcess
 
@@ -60,13 +63,16 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Navigation() {
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
 
-    NavHost(
+    AnimatedNavHost(
         navController = navController,
-        startDestination = Routes.SplashScreen.route
+        startDestination = Routes.SplashScreen.route,
+        enterTransition = {slideInHorizontally(initialOffsetX = {it})},
+        exitTransition = {slideOutHorizontally(targetOffsetX = {it})}
     ){
         composable(Routes.SplashScreen.route){
             SplashScreen(navController)

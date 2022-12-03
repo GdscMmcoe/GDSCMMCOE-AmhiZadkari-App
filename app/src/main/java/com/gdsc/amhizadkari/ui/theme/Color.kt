@@ -21,5 +21,5 @@ val Colors.buttonColor:Color
 
 val Colors.CardColor:Color
 @Composable
-get() = if(isLight) Color(0xffD8F2D4) else MaterialTheme.colors.secondary
+get() = if(isLight) Color(0xffD8F2D4) else MaterialTheme.colors.secondaryVariant
 

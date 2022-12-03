@@ -3,6 +3,7 @@ package com.gdsc.amhizadkari
 import AboutUsScreen
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,18 +31,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.gdsc.amhizadkari.donate.DonateUsScreen
 import com.gdsc.amhizadkari.home.HomeScreen
 import com.gdsc.amhizadkari.ui.theme.CardColor
 import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.ui.theme.rowColor
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BottomNav(navController: NavController) {
     val items = listOf(
@@ -64,7 +66,7 @@ fun BottomNav(navController: NavController) {
             },
         ){
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                val bottomNavController = rememberNavController()
+                val bottomNavController = rememberAnimatedNavController()
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -136,11 +138,13 @@ fun BottomNav(navController: NavController) {
                         }
                     }
                 ) { innerPadding ->
-                    NavHost(
+                    AnimatedNavHost(
                         bottomNavController,
                         startDestination = Routes.Home.route,
                         Modifier
-                            .padding(innerPadding)
+                            .padding(innerPadding),
+                        enterTransition = { fadeIn() },
+                        exitTransition = { fadeOut() },
                     ) {
                         composable(Routes.Home.route) {
                             HomeScreen(navController)
@@ -286,31 +290,6 @@ fun DrawerContent(navController: NavController) {
                     Icon(
                         painter = painterResource(id = R.drawable.instagram),
                         contentDescription = "Instagram",
-                        modifier = Modifier
-                            .size(35.dp)
-                    )
-                    Text(
-                        text = "amhi_zadkari",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight(500),
-                        fontFamily = Poppins,
-                        modifier = Modifier.padding(start = 20.dp)
-                    )
-                }
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 25.dp, bottom = 10.dp)
-                        .clickable {
-
-                        }
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.facebook),
-                        contentDescription = "Facebook",
                         modifier = Modifier
                             .size(35.dp)
                     )
