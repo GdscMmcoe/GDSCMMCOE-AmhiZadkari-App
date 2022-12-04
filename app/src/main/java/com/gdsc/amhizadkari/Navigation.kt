@@ -171,7 +171,8 @@ fun DrawerContent(navController: NavController) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
             Column(
@@ -269,7 +270,7 @@ fun DrawerContent(navController: NavController) {
                             .size(30.dp)
                     )
                     Text(
-                        text = "Terms and Condition",
+                        text = "Terms and Conditions",
                         fontSize = 18.sp,
                         fontWeight = FontWeight(500),
                         fontFamily = Poppins
