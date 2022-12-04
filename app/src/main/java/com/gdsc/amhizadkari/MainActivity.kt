@@ -1,6 +1,8 @@
 package com.gdsc.amhizadkari
 
 import FaqScreen
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -9,17 +11,30 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.material.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.gdsc.amhizadkari.contactus.ContactUsScreen
 import com.gdsc.amhizadkari.event.EventScreen
 import com.gdsc.amhizadkari.splash.SplashScreen
+import com.gdsc.amhizadkari.terms.TandCScreen
 import com.gdsc.amhizadkari.ui.theme.AppTheme
 import com.gdsc.amhizadkari.ui.theme.CardColor
+import com.gdsc.amhizadkari.ui.theme.Poppins
 import com.gdsc.amhizadkari.util.ReadData
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -31,19 +46,30 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppTheme {
-                ReadData()
-                Navigation()
+            val keyPref = LocalContext.current.getSharedPreferences("authkey", Context.MODE_PRIVATE)
+            var agree by remember { mutableStateOf(keyPref.getBoolean("agree",false)) }
+            val editor = keyPref.edit()
 
-                val green = MaterialTheme.colors.CardColor
-                val systemUiController = rememberSystemUiController()
-                DisposableEffect(key1 = systemUiController){
-                    systemUiController.setSystemBarsColor(
-                        color = green
-                    )
-                    onDispose {  }
+            AppTheme {
+                if(!agree){
+                    AskAck(editor){
+                        agree = true
+                    }
                 }
 
+                else{
+                    ReadData()
+                    Navigation()
+
+                    val green = MaterialTheme.colors.CardColor
+                    val systemUiController = rememberSystemUiController()
+                    DisposableEffect(key1 = systemUiController){
+                        systemUiController.setSystemBarsColor(
+                            color = green
+                        )
+                        onDispose {  }
+                    }
+                }
             }
 
             var backPressTime = 0L
@@ -84,6 +110,10 @@ fun Navigation() {
             ContactUsScreen(navController)
         }
 
+        composable(Routes.TandCScreen.route){
+            TandCScreen(navController)
+        }
+
         composable(Routes.FaqScreen.route){
             FaqScreen(navController)
         }
@@ -103,3 +133,63 @@ fun Navigation() {
     }
 
 }
+
+@Composable
+fun AskAck(editor: SharedPreferences.Editor, onClick: () -> Unit) {
+    Column(
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Top,
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, top = 40.dp)
+        ){
+            Text(
+                text = stringResource(id = R.string.ack),
+                fontSize = 24.sp,
+                fontFamily = Poppins,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ){
+            Text(
+                text = stringResource(id = R.string.ackcontent),
+                textAlign = TextAlign.Justify
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ){
+            Button(
+                onClick = {
+                editor.putBoolean("agree", true)
+                editor.commit()
+                onClick()
+                },
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)
+            ) {
+                Text(text = stringResource(R.string.agree_continue))
+            }
+        }
+
+    }
+}
+

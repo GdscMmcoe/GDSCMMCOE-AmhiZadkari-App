@@ -172,11 +172,11 @@ fun DrawerContent(navController: NavController) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Column(
                 verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.verticalScroll(rememberScrollState())
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Surface(
                     elevation = 10.dp
@@ -248,6 +248,28 @@ fun DrawerContent(navController: NavController) {
                     )
                     Text(
                         text = "FAQ's",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(500),
+                        fontFamily = Poppins
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { navController.navigate(Routes.TandCScreen.route) }
+                        .padding(start = 25.dp, top = 15.dp, bottom = 15.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.QuestionAnswer,
+                        contentDescription = "Terms and Conditions",
+                        modifier = Modifier
+                            .padding(end = 15.dp)
+                            .size(30.dp)
+                    )
+                    Text(
+                        text = "Terms and Condition",
                         fontSize = 18.sp,
                         fontWeight = FontWeight(500),
                         fontFamily = Poppins
