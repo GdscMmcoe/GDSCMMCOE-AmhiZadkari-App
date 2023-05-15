@@ -29,6 +29,6 @@ This app makes use of the cutting-edge Android toolkit Jetpack Compose, which ha
 7. **Coil**: Coil is a fast, lightweight, and incredibly user-friendly image loading library that makes it simpler to load images from the internet. Memory and disc caching are just a couple of the improvements carried out by Coil.
 8. **Firebase**: Using Google firebase we make an app that is easy to update over the internet and make dynamic apps. To store and serve data, Firebase offers us its easy to use storage and a database.
 ### App link
-https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/releases/download/v1.1.0/zadkari.apk
+[Click here to download the app](https://github.com/GdscMmcoe/GDSCMMCOE-AmhiZadkari-App/releases/download/v1.2/zadkari.apk)
 ### Future Scope
 The future potential of this software would be to collaborate with other organisations working for worthy causes to build a volunteer gateway, rather than just serving one particular group.
